@@ -38,6 +38,18 @@ Open `index.html` directly, or run a local server:
 npx serve .
 ```
 
+### Stable preview with Cloudflare Named Tunnel
+
+The repo includes a helper script:
+
+```bash
+./scripts/preview-stable.sh start
+./scripts/preview-stable.sh status
+./scripts/preview-stable.sh stop
+```
+
+For a truly stable custom URL (e.g. `preview.allride.com`), DNS must point to a Cloudflare-managed tunnel route in the correct zone.
+
 ## Next improvements (optional)
 
 - Migrate to React/Vite for component-based architecture
