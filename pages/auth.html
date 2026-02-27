@@ -19,30 +19,30 @@
           </div>
         </header>
 
-        <div class="safe-area">
-          <section class="hero-card">
+        <div class="safe-area auth-screen">
+          <section class="hero-card auth-hero">
             <div class="hero-card__content">
               <p class="hero-label">Welcome to</p>
               <h1 class="hero-title">allride</h1>
-              <p class="hero-note">Sign in with your phone number for new and existing users</p>
+              <p class="hero-note">Sign in with your phone number to continue with your trips</p>
             </div>
           </section>
 
-          <section class="panel js-auth-form">
+          <section class="panel js-auth-form auth-form">
             <label class="label" for="phone">Phone number</label>
             <div class="pill-input">
               <span>+65</span>
-              <input id="phone" class="js-input-phone" type="tel" placeholder="Input your number" />
+              <input id="phone" class="js-input-phone" type="tel" placeholder="Your phone number" />
             </div>
 
-            <label class="label" for="otp">OTP via SMS</label>
+            <label class="label" for="otp">OTP code</label>
             <div class="pill-input">
-              <input id="otp" class="js-input-otp" type="text" inputmode="numeric" placeholder="Enter OTP" />
+              <input id="otp" class="js-input-otp" type="text" inputmode="numeric" placeholder="4-digit code" />
             </div>
 
             <p class="form-error js-auth-error" aria-live="polite"></p>
 
-            <a class="btn btn--primary btn--lg js-login-btn" href="./home.html">Let's go</a>
+            <a class="btn btn--primary btn--lg js-login-btn" href="./home.html">Continue</a>
           </section>
         </div>
       </section>
