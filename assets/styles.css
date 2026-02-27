@@ -1893,6 +1893,7 @@ button.search-box:focus-visible {
   align-items: center;
   gap: 3px;
   line-height: 1;
+  color: #5f678a;
 }
 
 .tab-icon {
@@ -1901,15 +1902,19 @@ button.search-box:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  color: inherit;
 }
 
 .tab-icon svg {
   width: 18px;
   height: 18px;
+  display: block;
+  overflow: visible;
   stroke: currentColor;
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
+  fill: none;
 }
 
 .tab-label {
