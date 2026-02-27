@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>allride · Journey</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <main class="device-shell">
+      <section class="device">
+        <header class="statusbar">
+          <span>9:41</span>
+          <div class="statusbar__icons">
+            <span>5G</span>
+            <span class="statusbar__dot"></span>
+            <span class="statusbar__dot"></span>
+            <span class="statusbar__dot"></span>
+          </div>
+        </header>
+
+        <div class="safe-area journey-screen">
+          <div class="top-row top-row--compact top-row--end">
+            <button class="icon-btn" aria-label="Menu">☰</button>
+          </div>
+
+          <section class="map-card map-card--route-view">
+            <div class="map-grid"></div>
+            <div class="route-route route-route--a"></div>
+            <div class="route-route route-route--b"></div>
+            <div class="route-stop route-stop--start"></div>
+            <div class="route-stop route-stop--end"></div>
+          </section>
+
+          <section class="route-details-card">
+            <h2 class="route-details-title">AllRide Journey</h2>
+
+            <div class="route-point">
+              <span>📍</span>
+              <div>
+                <strong>Blk C Carpark, Singapore University</strong>
+                <p>463 Clementi Road, Singapore 599494</p>
+              </div>
+            </div>
+
+            <div class="route-point">
+              <span>📌</span>
+              <div>
+                <strong>Tampines Mall</strong>
+                <p>4 Tampines Central 5, Singapore 529510</p>
+              </div>
+            </div>
+
+            <button class="add-location" type="button">+ Add more location</button>
+          </section>
+
+          <section class="payment-strip">
+            <p class="label">Payment Method</p>
+            <div class="payment-row">
+              <span class="pay-chip">Mastercard</span>
+              <span class="pay-chip">VISA</span>
+              <span class="pay-chip">Apple Pay</span>
+              <span class="pay-chip">GPay</span>
+              <span class="pay-chip">Cash</span>
+            </div>
+          </section>
+
+          <a class="btn btn--primary btn--lg" href="./rides.html">Find vehicles</a>
+
+          <nav class="bottom-tabs">
+            <a class="bottom-tab" data-tab="home.html" href="./home.html">🏠<br />Home</a>
+            <a class="bottom-tab" data-tab="journey.html,rides.html" href="./journey.html">🚘<br />Rides</a>
+            <a class="bottom-tab" data-tab="tracking.html" href="./tracking.html">🧭<br />Track</a>
+            <a class="bottom-tab" data-tab="profile.html" href="./profile.html">👤<br />Profile</a>
+          </nav>
+        </div>
+      </section>
+
+      <nav class="flow-nav">
+        <a class="flow-nav__link" href="./home.html">← Назад</a>
+        <a class="flow-nav__link" href="./rides.html">Далее →</a>
+      </nav>
+    </main>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

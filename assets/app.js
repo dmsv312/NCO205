@@ -15,7 +15,12 @@
 
   const currentPath = window.location.pathname.split('/').pop();
   document.querySelectorAll('[data-tab]').forEach((tab) => {
-    if (tab.dataset.tab === currentPath) {
+    const routes = (tab.dataset.tab || '')
+      .split(',')
+      .map((route) => route.trim())
+      .filter(Boolean);
+
+    if (routes.includes(currentPath)) {
       tab.classList.add('is-active');
     }
   });

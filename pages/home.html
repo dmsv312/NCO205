@@ -19,52 +19,45 @@
           </div>
         </header>
 
-        <div class="safe-area">
-          <div class="top-row">
-            <div>
-              <h1 class="title">Hello, Dmitry</h1>
-              <p class="subtitle">Where are we heading today?</p>
-            </div>
+        <div class="safe-area home-screen">
+          <div class="top-row top-row--compact">
+            <h1 class="title title--script">Hello XXX out today?</h1>
             <button class="icon-btn" aria-label="Menu">☰</button>
           </div>
 
-          <section class="map-card">
-            <div class="route-chip">
-              <div>
-                <strong>Pickup</strong>
-                Marina Bay Sands
-              </div>
-              <span>Now</span>
-            </div>
-            <div class="route-chip">
-              <div>
-                <strong>Destination</strong>
-                Changi Business Park
-              </div>
-              <span>28 min</span>
+          <section class="map-card map-card--city">
+            <div class="map-grid"></div>
+            <div class="map-pin">📍</div>
+            <div class="map-path"></div>
+          </section>
+
+          <section class="location-note">
+            <div class="location-note__icon">📌</div>
+            <div>
+              <p class="label">Boarding at</p>
+              <p class="location-note__text">Blk C carpark, Singapore University of Social Sciences</p>
             </div>
           </section>
 
-          <div class="search-box">🔎 Search destination</div>
+          <div class="search-box search-box--action">
+            <span>🔎 Search your destination</span>
+            <span class="search-box__action">➜</span>
+          </div>
 
-          <section class="quick-grid">
-            <a class="quick-card" href="./rides.html">
-              <span class="quick-emoji">🚕</span>
-              Ride
-            </a>
-            <a class="quick-card" href="./rides.html">
-              <span class="quick-emoji">📦</span>
-              Delivery
-            </a>
-            <a class="quick-card" href="./rides.html">
-              <span class="quick-emoji">🕒</span>
-              Rentals
-            </a>
+          <section class="panel panel--locations">
+            <ul class="recent-list">
+              <li class="recent-item"><span>🏠 XXX's home</span><span>Home</span></li>
+              <li class="recent-item"><span>💼 Office</span><span>Work</span></li>
+              <li class="recent-item"><span>🕘 Location 1</span><span>Recent</span></li>
+              <li class="recent-item"><span>🕘 Location 2</span><span>Recent</span></li>
+            </ul>
           </section>
+
+          <p class="promo-banner">LIFT YOUR RIDE · ALLRIDE</p>
 
           <nav class="bottom-tabs">
             <a class="bottom-tab" data-tab="home.html" href="./home.html">🏠<br />Home</a>
-            <a class="bottom-tab" data-tab="rides.html" href="./rides.html">🚘<br />Rides</a>
+            <a class="bottom-tab" data-tab="journey.html,rides.html" href="./journey.html">🚘<br />Rides</a>
             <a class="bottom-tab" data-tab="tracking.html" href="./tracking.html">🧭<br />Track</a>
             <a class="bottom-tab" data-tab="profile.html" href="./profile.html">👤<br />Profile</a>
           </nav>
@@ -73,7 +66,7 @@
 
       <nav class="flow-nav">
         <a class="flow-nav__link" href="./auth.html">← Назад</a>
-        <a class="flow-nav__link" href="./rides.html">Далее →</a>
+        <a class="flow-nav__link" href="./journey.html">Далее →</a>
       </nav>
     </main>
 
