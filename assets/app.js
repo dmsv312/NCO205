@@ -1,5 +1,5 @@
 (() => {
-  // Legacy ride cards (kept for compatibility if screen variant is reused)
+  // Legacy ride cards (kept for compatibility)
   const rideOptions = document.querySelectorAll('.ride-option');
   const selectedPrice = document.querySelector('.js-selected-price');
 
@@ -14,99 +14,120 @@
     });
   });
 
-  // New fare browser (price slider + categories + row selection)
-  const priceRange = document.querySelector('.js-price-range');
-  const priceValue = document.querySelector('.js-price-value');
-  const selectedFare = document.querySelector('.js-selected-fare');
+  // University/student fare browser
+  const rangeMin = document.querySelector('.js-range-min');
+  const rangeMax = document.querySelector('.js-range-max');
+  const priceMinLabel = document.querySelector('.js-price-min');
+  const priceMaxLabel = document.querySelector('.js-price-max');
+  const priceCurrent = document.querySelector('.js-price-current');
   const fareRows = Array.from(document.querySelectorAll('.fare-row'));
-  const fareGroups = Array.from(document.querySelectorAll('.fare-group'));
   const fareCats = Array.from(document.querySelectorAll('.fare-cat'));
+  const manualIncluded = new Set();
 
-  let activeCategory = 'all';
-
-  const setSelectedFare = (row) => {
-    fareRows.forEach((item) => {
-      item.classList.remove('is-selected');
-      const checkbox = item.querySelector('input[type="checkbox"]');
-      if (checkbox) checkbox.checked = false;
-    });
-
-    row.classList.add('is-selected');
-    const selectedCheckbox = row.querySelector('input[type="checkbox"]');
-    if (selectedCheckbox) selectedCheckbox.checked = true;
-
-    if (selectedFare) {
-      const price = Number(row.dataset.price || 0);
-      selectedFare.textContent = `$${price.toFixed(2)}`;
+  fareRows.forEach((row, index) => {
+    if (!row.dataset.id) {
+      row.dataset.id = `row-${index + 1}`;
     }
-  };
-
-  const applyFareFilters = () => {
-    const maxPrice = priceRange ? Number(priceRange.value) : Number.POSITIVE_INFINITY;
-
-    if (priceValue) {
-      priceValue.textContent = String(maxPrice);
-    }
-
-    fareRows.forEach((row) => {
-      const rowPrice = Number(row.dataset.price || 0);
-      const rowCat = row.dataset.category || 'all';
-
-      const byPrice = rowPrice <= maxPrice;
-      const byCategory = activeCategory === 'all' || rowCat === activeCategory;
-
-      row.classList.toggle('is-hidden', !(byPrice && byCategory));
-    });
-
-    fareGroups.forEach((group) => {
-      const hasVisible = !!group.querySelector('.fare-row:not(.is-hidden)');
-      group.classList.toggle('is-hidden', !hasVisible);
-    });
-
-    const selectedRow = document.querySelector('.fare-row.is-selected:not(.is-hidden)');
-    if (!selectedRow) {
-      const firstVisible = document.querySelector('.fare-row:not(.is-hidden)');
-      if (firstVisible) setSelectedFare(firstVisible);
-    }
-  };
-
-  if (priceRange && fareRows.length) {
-    priceRange.addEventListener('input', applyFareFilters);
-  }
-
-  fareCats.forEach((button) => {
-    button.addEventListener('click', () => {
-      fareCats.forEach((item) => item.classList.remove('is-active'));
-      button.classList.add('is-active');
-      activeCategory = button.dataset.cat || 'all';
-      applyFareFilters();
-    });
   });
 
-  fareRows.forEach((row) => {
-    const checkbox = row.querySelector('input[type="checkbox"]');
+  const applyFareRange = () => {
+    if (!fareRows.length) return;
 
-    row.addEventListener('click', (event) => {
-      if (event.target !== checkbox) {
-        setSelectedFare(row);
+    let min = rangeMin ? Number(rangeMin.value) : 0;
+    let max = rangeMax ? Number(rangeMax.value) : Number.POSITIVE_INFINITY;
+
+    if (min > max) {
+      [min, max] = [max, min];
+      if (rangeMin) rangeMin.value = String(min);
+      if (rangeMax) rangeMax.value = String(max);
+    }
+
+    if (priceMinLabel) priceMinLabel.textContent = String(min);
+    if (priceMaxLabel) priceMaxLabel.textContent = String(max);
+    if (priceCurrent) priceCurrent.textContent = String(max);
+
+    fareRows.forEach((row) => {
+      const id = row.dataset.id;
+      const price = Number(row.dataset.price || 0);
+      const checkbox = row.querySelector('input[type="checkbox"]');
+      const inRange = price >= min && price <= max;
+
+      row.classList.toggle('is-in-range', inRange);
+
+      if (inRange) {
+        row.classList.remove('is-manual');
+        manualIncluded.delete(id);
+        if (checkbox) checkbox.checked = true;
+      } else if (manualIncluded.has(id)) {
+        row.classList.add('is-manual');
+        if (checkbox) checkbox.checked = true;
+      } else {
+        row.classList.remove('is-manual');
+        if (checkbox) checkbox.checked = false;
       }
     });
 
-    if (checkbox) {
-      checkbox.addEventListener('change', () => {
-        if (checkbox.checked) {
-          setSelectedFare(row);
-        } else {
-          row.classList.remove('is-selected');
-          const firstVisible = document.querySelector('.fare-row:not(.is-hidden)');
-          if (firstVisible) setSelectedFare(firstVisible);
-        }
-      });
-    }
+    fareCats.forEach((cat) => {
+      const catName = cat.dataset.cat;
+      const hasInRange = fareRows.some(
+        (row) => row.dataset.category === catName && row.classList.contains('is-in-range')
+      );
+      cat.classList.toggle('is-in-range', hasInRange);
+    });
+  };
+
+  if (rangeMin && rangeMax && fareRows.length) {
+    rangeMin.addEventListener('input', () => {
+      if (Number(rangeMin.value) > Number(rangeMax.value)) {
+        rangeMax.value = rangeMin.value;
+      }
+      applyFareRange();
+    });
+
+    rangeMax.addEventListener('input', () => {
+      if (Number(rangeMax.value) < Number(rangeMin.value)) {
+        rangeMin.value = rangeMax.value;
+      }
+      applyFareRange();
+    });
+  }
+
+  fareRows.forEach((row) => {
+    const id = row.dataset.id;
+    const checkbox = row.querySelector('input[type="checkbox"]');
+    if (!checkbox) return;
+
+    checkbox.addEventListener('change', () => {
+      if (row.classList.contains('is-in-range')) {
+        checkbox.checked = true;
+        return;
+      }
+
+      if (checkbox.checked) {
+        manualIncluded.add(id);
+      } else {
+        manualIncluded.delete(id);
+      }
+
+      applyFareRange();
+    });
+
+    row.addEventListener('click', (event) => {
+      if (event.target === checkbox) return;
+
+      event.preventDefault();
+
+      if (row.classList.contains('is-in-range')) {
+        return;
+      }
+
+      checkbox.checked = !checkbox.checked;
+      checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+    });
   });
 
   if (fareRows.length) {
-    applyFareFilters();
+    applyFareRange();
   }
 
   // Bottom tab auto-highlight
