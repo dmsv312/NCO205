@@ -507,6 +507,14 @@ button.search-box {
   align-items: center;
 }
 
+.js-open-rides-by-address {
+  cursor: pointer;
+}
+
+.js-open-rides-by-address:active {
+  transform: scale(0.995);
+}
+
 .location-note__icon {
   width: 30px;
   height: 30px;
@@ -557,6 +565,19 @@ button.search-box {
   padding: 0 10px;
   font-size: 12px;
   color: #313b70;
+}
+
+.js-recent-destination {
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.js-recent-destination:active {
+  transform: scale(0.994);
+}
+
+.is-address-link {
+  cursor: pointer;
 }
 
 .recent-item span:last-child {

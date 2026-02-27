@@ -69,6 +69,12 @@
 
   const formatPrice = (value) => `$${Number(value || 0).toFixed(2)}`;
 
+  const getRidesPageHref = () => (window.location.pathname.includes('/pages/') ? './rides.html' : './pages/rides.html');
+
+  const goToRidesPage = () => {
+    window.location.href = getRidesPageHref();
+  };
+
   const resolveDestinationCoords = () => {
     const destination = String(state.destination || '').toLowerCase();
 
@@ -228,6 +234,15 @@
     });
   };
 
+  const initAddressLinks = () => {
+    qsa('.js-route-pickup, .js-route-destination').forEach((el) => {
+      el.classList.add('is-address-link');
+      el.addEventListener('click', () => {
+        goToRidesPage();
+      });
+    });
+  };
+
   const initAuth = () => {
     const phoneInput = qs('.js-input-phone');
     const otpInput = qs('.js-input-otp');
@@ -280,6 +295,7 @@
     const pickupEl = qs('.js-pickup-text');
     const destinationEl = qs('.js-destination-text');
     const searchBtn = qs('.js-open-search');
+    const openByAddress = qs('.js-open-rides-by-address');
 
     if (!nameEl && !pickupEl && !destinationEl) return;
 
@@ -293,9 +309,15 @@
         saveState({ destination: destination.trim() });
         if (destinationEl) destinationEl.textContent = destination.trim();
         refreshRealMaps();
-        toast(`Route: ${destination.trim()}`);
+        goToRidesPage();
       });
     });
+
+    if (openByAddress) {
+      openByAddress.addEventListener('click', () => {
+        goToRidesPage();
+      });
+    }
 
     if (searchBtn) {
       searchBtn.addEventListener('click', () => {
@@ -304,6 +326,7 @@
         saveState({ destination: userInput.trim() });
         if (destinationEl) destinationEl.textContent = userInput.trim();
         refreshRealMaps();
+        goToRidesPage();
       });
     }
 
@@ -587,6 +610,7 @@
   };
 
   syncBottomTabs();
+  initAddressLinks();
   initAuth();
   initHome();
   initJourney();
