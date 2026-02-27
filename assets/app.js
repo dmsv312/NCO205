@@ -21,6 +21,16 @@
     university: { min: 10, max: 30, label: 'University student mode' },
   };
 
+  const SG_POINTS = {
+    pickup: [1.3322, 103.7768], // Singapore University of Social Sciences area
+    tampinesMall: [1.3532, 103.9444],
+    singaporeFlyer: [1.2894, 103.8632],
+    orchard: [1.3044, 103.8318],
+    cityOffice: [1.3349, 103.9621],
+  };
+
+  const MAP_CACHE = new Map();
+
   const parseState = () => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -58,6 +68,142 @@
   const textOr = (value, fallback) => (value && String(value).trim() ? String(value).trim() : fallback);
 
   const formatPrice = (value) => `$${Number(value || 0).toFixed(2)}`;
+
+  const resolveDestinationCoords = () => {
+    const destination = String(state.destination || '').toLowerCase();
+
+    if (destination.includes('tampines')) return SG_POINTS.tampinesMall;
+    if (destination.includes('flyer')) return SG_POINTS.singaporeFlyer;
+    if (destination.includes('office')) return SG_POINTS.cityOffice;
+    if (destination.includes('home')) return SG_POINTS.orchard;
+
+    return SG_POINTS.tampinesMall;
+  };
+
+  const buildRoutePoints = (start, end) => {
+    const mid1 = [
+      start[0] + (end[0] - start[0]) * 0.35 + 0.01,
+      start[1] + (end[1] - start[1]) * 0.3 - 0.03,
+    ];
+    const mid2 = [
+      start[0] + (end[0] - start[0]) * 0.72 - 0.005,
+      start[1] + (end[1] - start[1]) * 0.78 + 0.025,
+    ];
+
+    return [start, mid1, mid2, end];
+  };
+
+  const getMapRecord = (selector) => {
+    const el = qs(selector);
+    if (!el || !window.L) return null;
+
+    if (MAP_CACHE.has(selector)) {
+      return MAP_CACHE.get(selector);
+    }
+
+    const card = el.closest('.map-card');
+    if (card) card.classList.add('has-real-map');
+
+    const map = window.L.map(el, {
+      zoomControl: false,
+      attributionControl: false,
+      scrollWheelZoom: false,
+      touchZoom: true,
+      doubleClickZoom: false,
+      dragging: true,
+      tap: true,
+      preferCanvas: true,
+    });
+
+    window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+    }).addTo(map);
+
+    const layerGroup = window.L.layerGroup().addTo(map);
+
+    const record = { map, layerGroup };
+    MAP_CACHE.set(selector, record);
+
+    setTimeout(() => map.invalidateSize(), 0);
+
+    return record;
+  };
+
+  const drawRouteMap = (selector, options = {}) => {
+    const record = getMapRecord(selector);
+    if (!record) return;
+
+    const { routeStyle = {}, showCar = false, zoomPadding = [26, 26] } = options;
+
+    const start = SG_POINTS.pickup;
+    const end = resolveDestinationCoords();
+    const route = buildRoutePoints(start, end);
+
+    record.layerGroup.clearLayers();
+
+    window.L.polyline(route, {
+      color: '#1f3f9a',
+      weight: 4,
+      opacity: 0.92,
+      lineCap: 'round',
+      lineJoin: 'round',
+      ...routeStyle,
+    }).addTo(record.layerGroup);
+
+    window.L.circleMarker(start, {
+      radius: 7,
+      color: '#ffffff',
+      weight: 2,
+      fillColor: '#f06a7b',
+      fillOpacity: 1,
+    }).addTo(record.layerGroup);
+
+    window.L.circleMarker(end, {
+      radius: 7,
+      color: '#ffffff',
+      weight: 2,
+      fillColor: '#1d2f74',
+      fillOpacity: 1,
+    }).addTo(record.layerGroup);
+
+    if (showCar) {
+      const carPoint = route[Math.max(1, route.length - 2)];
+      window.L.marker(carPoint, {
+        icon: window.L.divIcon({
+          className: 'map-car-marker',
+          html: '<span class="map-car-marker__inner">🚗</span>',
+          iconSize: [28, 28],
+          iconAnchor: [14, 14],
+        }),
+      }).addTo(record.layerGroup);
+    }
+
+    record.map.fitBounds(window.L.latLngBounds(route), {
+      padding: zoomPadding,
+      maxZoom: 13,
+    });
+  };
+
+  const refreshRealMaps = () => {
+    if (!window.L) return;
+
+    drawRouteMap('.js-map-home', {
+      routeStyle: { dashArray: '9 8' },
+      zoomPadding: [30, 30],
+    });
+
+    drawRouteMap('.js-map-journey');
+
+    drawRouteMap('.js-map-rides', {
+      routeStyle: { dashArray: '7 7', opacity: 0.9 },
+    });
+
+    drawRouteMap('.js-map-tracking', {
+      showCar: true,
+      routeStyle: { dashArray: undefined },
+      zoomPadding: [22, 22],
+    });
+  };
 
   const syncBottomTabs = () => {
     const currentPath = window.location.pathname.split('/').pop();
@@ -146,6 +292,7 @@
         const destination = item.dataset.destination || item.textContent || '';
         saveState({ destination: destination.trim() });
         if (destinationEl) destinationEl.textContent = destination.trim();
+        refreshRealMaps();
         toast(`Route: ${destination.trim()}`);
       });
     });
@@ -156,14 +303,18 @@
         if (!userInput) return;
         saveState({ destination: userInput.trim() });
         if (destinationEl) destinationEl.textContent = userInput.trim();
+        refreshRealMaps();
       });
     }
+
+    refreshRealMaps();
   };
 
   const initJourney = () => {
     if (!qs('.journey-screen')) return;
 
     syncRouteTexts();
+    refreshRealMaps();
 
     const paymentButtons = qsa('.js-payment-chip');
     const addLocationBtn = qs('.js-add-location');
@@ -205,6 +356,8 @@
   const initRides = () => {
     const fareRows = qsa('.fare-row');
     if (!fareRows.length) return;
+
+    refreshRealMaps();
 
     const rangeMin = qs('.js-range-min');
     const rangeMax = qs('.js-range-max');
@@ -405,6 +558,7 @@
     if (!qs('.tracking-live-screen')) return;
 
     syncRouteTexts();
+    refreshRealMaps();
 
     const fareName = qs('.js-fare-name');
     const farePrice = qs('.js-fare-price');
@@ -440,4 +594,5 @@
   initFinding();
   initTracking();
   initProfile();
+  refreshRealMaps();
 })();

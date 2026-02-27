@@ -18,6 +18,7 @@ Interactive multi-screen mobile web version of the allride concept.
 - State persistence via `localStorage` across screens
 - Login validation (phone + OTP)
 - Route and destination state synced between pages
+- Real map tiles for Singapore routes using Leaflet + OpenStreetMap (Home/Journey/Rides/Tracking)
 - Payment method selection
 - Fare filtering with presets (Working Adult / University Student)
 - Fare selection state carried into Finding + Tracking screens

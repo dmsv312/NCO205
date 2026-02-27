@@ -1766,6 +1766,62 @@ body {
   border-radius: var(--app-radius-lg) var(--app-radius-lg) 0 0;
 }
 
+.map-live {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.map-card.has-real-map {
+  padding: 0;
+}
+
+.map-card.has-real-map::before,
+.map-card.has-real-map::after {
+  display: none;
+}
+
+.map-live .leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: #dce6f8;
+  filter: saturate(1.05) contrast(1.02);
+}
+
+.map-live .leaflet-control-zoom,
+.map-live .leaflet-control-attribution {
+  display: none !important;
+}
+
+.map-live::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0));
+  z-index: 401;
+}
+
+.map-car-marker {
+  background: transparent;
+  border: 0;
+}
+
+.map-car-marker__inner {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid rgba(24, 34, 78, 0.18);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 14px rgba(19, 29, 73, 0.25);
+  font-size: 16px;
+}
+
 .map-card__menu,
 .icon-btn {
   width: 36px;

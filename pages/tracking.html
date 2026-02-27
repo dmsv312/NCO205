@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>allride · Tracking</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <link rel="stylesheet" href="../assets/styles.css" />
   </head>
   <body>
@@ -44,10 +45,7 @@
 
           <section class="map-card map-card--live">
             <button class="icon-btn map-card__menu" aria-label="Menu">☰</button>
-            <div class="map-grid"></div>
-            <div class="live-road live-road--a"></div>
-            <div class="live-road live-road--b"></div>
-            <span class="live-car">🚗</span>
+            <div class="map-live js-map-tracking" aria-label="Live driver route"></div>
           </section>
 
           <section class="driver-status-strip">
@@ -87,6 +85,7 @@
       </nav>
     </main>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script src="../assets/app.js"></script>
   </body>
 </html>

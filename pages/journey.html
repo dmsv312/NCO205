@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>allride · Journey</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
     <link rel="stylesheet" href="../assets/styles.css" />
   </head>
   <body>
@@ -25,11 +26,7 @@
           </div>
 
           <section class="map-card map-card--route-view">
-            <div class="map-grid"></div>
-            <div class="route-route route-route--a"></div>
-            <div class="route-route route-route--b"></div>
-            <div class="route-stop route-stop--start"></div>
-            <div class="route-stop route-stop--end"></div>
+            <div class="map-live js-map-journey" aria-label="Journey map"></div>
           </section>
 
           <section class="route-details-card">
@@ -82,6 +79,7 @@
       </nav>
     </main>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script src="../assets/app.js"></script>
   </body>
 </html>
