@@ -184,6 +184,11 @@ a {
   box-shadow: var(--shadow-soft);
 }
 
+.panel--flat {
+  background: rgba(255, 255, 255, 0.62);
+  box-shadow: none;
+}
+
 .label {
   font-size: 12px;
   font-weight: 700;
@@ -371,6 +376,64 @@ a {
 
 .quick-emoji {
   font-size: 22px;
+}
+
+.profile-screen {
+  padding-top: 18px;
+}
+
+.profile-card-soft {
+  background: rgba(255, 255, 255, 0.64);
+  border: 1px solid rgba(26, 39, 92, 0.1);
+  border-radius: 22px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 26px rgba(25, 35, 84, 0.1);
+}
+
+.profile-card-soft__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #e6f4ff, #ffffff);
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  border: 1px solid rgba(31, 47, 114, 0.1);
+}
+
+.profile-card-soft__label {
+  margin: 0;
+  font-size: 14px;
+  color: #27326a;
+  font-weight: 700;
+}
+
+.profile-card-soft__name {
+  margin: 1px 0;
+  font-size: 24px;
+  line-height: 1.1;
+  color: #152052;
+}
+
+.profile-card-soft__meta {
+  margin: 0;
+  color: #646b8a;
+  font-size: 13px;
+}
+
+.quick-grid--profile {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.quick-grid--profile .quick-card {
+  min-height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
 }
 
 .bottom-tabs {
