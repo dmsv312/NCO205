@@ -20,12 +20,8 @@
         </header>
 
         <div class="safe-area rides-screen">
-          <div class="top-row top-row--compact top-row--end">
-            <p class="mode-chip">University student mode</p>
-            <button class="icon-btn" aria-label="Menu">☰</button>
-          </div>
-
           <section class="map-card map-card--route-view rides-map">
+            <button class="icon-btn map-card__menu" aria-label="Menu">☰</button>
             <div class="map-grid"></div>
             <div class="route-route route-route--a"></div>
             <div class="route-route route-route--b"></div>
@@ -37,19 +33,19 @@
             <div class="fare-filter__head">
               <p class="label">Price Range</p>
               <p class="fare-filter__value">
-                <strong class="js-price-min">10</strong>–<strong class="js-price-max">30</strong>
+                <strong class="js-price-min">10</strong>–<strong class="js-price-max">55</strong>
               </p>
             </div>
 
             <div class="fare-filter__bounds fare-filter__bounds--triple">
               <span>10</span>
-              <span class="js-price-current">30</span>
+              <span class="js-price-current">55</span>
               <span>150</span>
             </div>
 
             <div class="range-stack">
-              <input class="range-slider js-range-min" type="range" min="10" max="150" value="10" step="1" />
-              <input class="range-slider js-range-max" type="range" min="10" max="150" value="30" step="1" />
+              <input class="js-range-min" type="hidden" value="10" />
+              <input class="range-slider js-range-max" type="range" min="10" max="150" value="55" step="1" />
             </div>
           </section>
 
