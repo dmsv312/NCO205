@@ -19,42 +19,120 @@
           </div>
         </header>
 
-        <div class="safe-area">
-          <div>
-            <h1 class="title">Choose your ride</h1>
-            <p class="subtitle">Marina Bay Sands → Changi Business Park</p>
+        <div class="safe-area rides-screen">
+          <div class="top-row top-row--compact top-row--end">
+            <button class="icon-btn" aria-label="Menu">☰</button>
           </div>
 
-          <section class="ride-list">
-            <article class="ride-option is-selected" data-price="$9.80">
-              <div class="ride-head">
-                <span>Economy</span>
-                <span>$9.80</span>
-              </div>
-              <div class="ride-meta">3 min away · 4 seats · Best value</div>
-            </article>
-
-            <article class="ride-option" data-price="$12.40">
-              <div class="ride-head">
-                <span>Comfort</span>
-                <span>$12.40</span>
-              </div>
-              <div class="ride-meta">4 min away · Newer cars · Quiet ride</div>
-            </article>
-
-            <article class="ride-option" data-price="$16.30">
-              <div class="ride-head">
-                <span>XL Van</span>
-                <span>$16.30</span>
-              </div>
-              <div class="ride-meta">6 min away · Up to 6 seats · Luggage friendly</div>
-            </article>
+          <section class="map-card map-card--route-view rides-map">
+            <div class="map-grid"></div>
+            <div class="route-route route-route--a"></div>
+            <div class="route-route route-route--b"></div>
+            <div class="route-stop route-stop--start"></div>
+            <div class="route-stop route-stop--end"></div>
           </section>
 
-          <section class="summary-card">
-            <span class="summary-label">Estimated fare</span>
-            <h2 class="summary-price js-selected-price">$9.80</h2>
-            <a class="btn btn--primary btn--lg" href="./tracking.html">Book ride</a>
+          <section class="fare-filter">
+            <div class="fare-filter__head">
+              <p class="label">Price Range</p>
+              <p class="fare-filter__value">max <strong class="js-price-value">150</strong></p>
+            </div>
+            <div class="fare-filter__bounds">
+              <span>10</span>
+              <span>150</span>
+            </div>
+            <input class="range-slider js-price-range" type="range" min="10" max="150" value="150" step="1" />
+          </section>
+
+          <section class="fare-browser">
+            <aside class="fare-cats">
+              <button class="fare-cat is-active" type="button" data-cat="all">All</button>
+              <button class="fare-cat" type="button" data-cat="carpool">Car Pool</button>
+              <button class="fare-cat" type="button" data-cat="standard">Standard</button>
+              <button class="fare-cat" type="button" data-cat="premium">Premium</button>
+              <button class="fare-cat" type="button" data-cat="kids">With Kids</button>
+              <button class="fare-cat" type="button" data-cat="pets">With Pets</button>
+              <button class="fare-cat" type="button" data-cat="group">Large Group</button>
+            </aside>
+
+            <div class="fare-results">
+              <article class="fare-group">
+                <h3 class="fare-group__title">4 pax</h3>
+
+                <label class="fare-row is-selected" data-category="carpool" data-price="24.40">
+                  <span class="provider-badge provider-badge--amber">MC</span>
+                  <span class="fare-row__name">Taxi or Car · 4 pax</span>
+                  <span class="fare-row__price">$24.40</span>
+                  <input type="checkbox" checked />
+                </label>
+
+                <label class="fare-row" data-category="standard" data-price="25.40">
+                  <span class="provider-badge provider-badge--mint">GR</span>
+                  <span class="fare-row__name">Standard · 4 pax</span>
+                  <span class="fare-row__price">$25.40</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label class="fare-row" data-category="premium" data-price="28.70">
+                  <span class="provider-badge provider-badge--lime">GC</span>
+                  <span class="fare-row__name">GoCar · 4 pax</span>
+                  <span class="fare-row__price">$28.70</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label class="fare-row" data-category="kids" data-price="30.36">
+                  <span class="provider-badge provider-badge--red">RY</span>
+                  <span class="fare-row__name">RydeX · 4 pax</span>
+                  <span class="fare-row__price">$30.36</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label class="fare-row" data-category="pets" data-price="35.00">
+                  <span class="provider-badge provider-badge--orange">TD</span>
+                  <span class="fare-row__name">AnyTADA · 4 pax</span>
+                  <span class="fare-row__price">$35.00</span>
+                  <input type="checkbox" />
+                </label>
+              </article>
+
+              <article class="fare-group">
+                <h3 class="fare-group__title">6 pax</h3>
+
+                <label class="fare-row" data-category="group" data-price="33.10">
+                  <span class="provider-badge provider-badge--amber">MC</span>
+                  <span class="fare-row__name">Taxi or Car · 6 pax</span>
+                  <span class="fare-row__price">$33.10</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label class="fare-row" data-category="group" data-price="40.10">
+                  <span class="provider-badge provider-badge--mint">GR</span>
+                  <span class="fare-row__name">Standard · 6 pax</span>
+                  <span class="fare-row__price">$40.10</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label class="fare-row" data-category="group" data-price="40.30">
+                  <span class="provider-badge provider-badge--lime">GC</span>
+                  <span class="fare-row__name">GoCar XL · 6 pax</span>
+                  <span class="fare-row__price">$40.30</span>
+                  <input type="checkbox" />
+                </label>
+
+                <label class="fare-row" data-category="group" data-price="50.74">
+                  <span class="provider-badge provider-badge--red">RY</span>
+                  <span class="fare-row__name">RydeXL · 6 pax</span>
+                  <span class="fare-row__price">$50.74</span>
+                  <input type="checkbox" />
+                </label>
+              </article>
+            </div>
+          </section>
+
+          <section class="summary-card summary-card--compact">
+            <span class="summary-label">Selected fare</span>
+            <h2 class="summary-price js-selected-fare">$24.40</h2>
+            <a class="btn btn--primary btn--lg" href="./tracking.html">Confirm and track</a>
           </section>
 
           <nav class="bottom-tabs">
