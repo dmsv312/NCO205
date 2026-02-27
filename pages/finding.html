@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>allride · Finding vehicle</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <main class="device-shell">
+      <section class="device">
+        <header class="statusbar">
+          <span>9:41</span>
+          <div class="statusbar__icons">
+            <span>5G</span>
+            <span class="statusbar__dot"></span>
+            <span class="statusbar__dot"></span>
+            <span class="statusbar__dot"></span>
+          </div>
+        </header>
+
+        <div class="safe-area finding-screen">
+          <section class="journey-mini">
+            <h2 class="journey-mini__title">AllRide Journey</h2>
+
+            <div class="journey-mini__point">
+              <span>📍</span>
+              <div>
+                <strong>Blk C Carpark, Singapore University</strong>
+                <p>465 Clementi Road, Singapore 599494</p>
+              </div>
+            </div>
+
+            <div class="journey-mini__point">
+              <span>📌</span>
+              <div>
+                <strong>Tampines Mall</strong>
+                <p>4 Tampines Central 5, Singapore 529510</p>
+              </div>
+            </div>
+
+            <button class="journey-mini__add" type="button">+ Add more location</button>
+          </section>
+
+          <section class="finding-panel">
+            <p class="finding-panel__title">Finding a vehicle</p>
+            <div class="finding-loader" aria-hidden="true">
+              <span class="finding-loader__car">🚕</span>
+              <span class="finding-loader__dot"></span>
+              <span class="finding-loader__dot"></span>
+              <span class="finding-loader__dot"></span>
+            </div>
+          </section>
+
+          <section class="finder-board">
+            <aside class="finder-cats">
+              <div class="finder-cat">Car Pool</div>
+              <div class="finder-cat">Standard 4 pax</div>
+              <div class="finder-cat">Premium</div>
+            </aside>
+
+            <div class="finder-list">
+              <label class="finder-row">
+                <span class="provider-badge provider-badge--mint">GR</span>
+                <span class="finder-row__name">Hitch · 1–4 pax</span>
+                <span class="finder-row__price">$18.40</span>
+                <input class="fare-check" type="checkbox" checked />
+              </label>
+
+              <label class="finder-row">
+                <span class="provider-badge provider-badge--red">RY</span>
+                <span class="finder-row__name">RydeFLASH · 1–4 pax</span>
+                <span class="finder-row__price">$22.54</span>
+                <input class="fare-check" type="checkbox" checked />
+              </label>
+
+              <label class="finder-row">
+                <span class="provider-badge provider-badge--amber">MC</span>
+                <span class="finder-row__name">Taxi or Car · 4 pax</span>
+                <span class="finder-row__price">$24.40</span>
+                <input class="fare-check" type="checkbox" checked />
+              </label>
+
+              <label class="finder-row">
+                <span class="provider-badge provider-badge--mint">GR</span>
+                <span class="finder-row__name">Standard · 4 pax</span>
+                <span class="finder-row__price">$25.40</span>
+                <input class="fare-check" type="checkbox" checked />
+              </label>
+
+              <label class="finder-row">
+                <span class="provider-badge provider-badge--lime">GC</span>
+                <span class="finder-row__name">GoCar · 4 pax</span>
+                <span class="finder-row__price">$28.70</span>
+                <input class="fare-check" type="checkbox" checked />
+              </label>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <nav class="flow-nav">
+        <a class="flow-nav__link" href="./rides.html">← Назад</a>
+        <a class="flow-nav__link" href="./tracking.html">Далее →</a>
+      </nav>
+    </main>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

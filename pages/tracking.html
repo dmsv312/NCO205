@@ -19,57 +19,70 @@
           </div>
         </header>
 
-        <div class="safe-area">
-          <div>
-            <h1 class="title">Your ride is coming</h1>
-            <p class="subtitle">Toyota Prius · SGB 4921K</p>
-          </div>
+        <div class="safe-area tracking-live-screen">
+          <section class="journey-mini">
+            <h2 class="journey-mini__title">AllRide Journey</h2>
 
-          <div class="eta-pill">Driver arrives in 3 min</div>
-
-          <section class="route-progress">
-            <div class="progress-row">
-              <span class="progress-dot is-active"></span>
-              <div><strong>Driver accepted order</strong><br />Just now</div>
-            </div>
-            <div class="progress-row">
-              <span class="progress-dot is-active"></span>
-              <div><strong>Heading to pickup point</strong><br />2.1 km away</div>
-            </div>
-            <div class="progress-row">
-              <span class="progress-dot"></span>
-              <div><strong>Trip starts</strong><br />Estimated 09:47</div>
-            </div>
-          </section>
-
-          <section class="driver-card">
-            <div class="driver-head">
-              <div class="avatar">AL</div>
+            <div class="journey-mini__point">
+              <span>📍</span>
               <div>
-                <h2 class="driver-name">Alex Lim</h2>
-                <p class="driver-meta">⭐ 4.9 · 2,345 trips</p>
+                <strong>Blk C Carpark, Singapore University</strong>
+                <p>465 Clementi Road, Singapore 599494</p>
               </div>
             </div>
 
-            <div class="actions-row">
-              <button class="btn btn--ghost" type="button">Call driver</button>
-              <button class="btn btn--ghost" type="button">Chat</button>
+            <div class="journey-mini__point">
+              <span>📌</span>
+              <div>
+                <strong>Tampines Mall</strong>
+                <p>4 Tampines Central 5, Singapore 529510</p>
+              </div>
+            </div>
+
+            <button class="journey-mini__add" type="button">+ Add more location</button>
+          </section>
+
+          <section class="map-card map-card--live">
+            <button class="icon-btn map-card__menu" aria-label="Menu">☰</button>
+            <div class="map-grid"></div>
+            <div class="live-road live-road--a"></div>
+            <div class="live-road live-road--b"></div>
+            <span class="live-car">🚗</span>
+          </section>
+
+          <section class="driver-status-strip">
+            <span>Driver is on the way!</span>
+            <strong>5 min</strong>
+          </section>
+
+          <section class="driver-sheet">
+            <div class="driver-sheet__head">
+              <div>
+                <h2 class="driver-sheet__plate">SGL1234M</h2>
+                <p class="driver-sheet__car">Red | Honda Civic</p>
+              </div>
+              <div class="avatar avatar--small">AC</div>
+            </div>
+
+            <p class="driver-sheet__meta">Alex Chua · 4.8 ⭐</p>
+
+            <div class="driver-sheet__fare">
+              <span>Taxi or Car · 4 pax</span>
+              <strong>$24.40</strong>
+            </div>
+
+            <div class="driver-chat">
+              <span>Chat with your driver here</span>
+              <button class="driver-chat__call" type="button" aria-label="Call">☎</button>
             </div>
           </section>
 
           <a class="btn btn--primary btn--lg" href="./profile.html">Finish demo flow</a>
-
-          <nav class="bottom-tabs">
-            <a class="bottom-tab" data-tab="home.html" href="./home.html">🏠<br />Home</a>
-            <a class="bottom-tab" data-tab="journey.html,rides.html" href="./journey.html">🚘<br />Rides</a>
-            <a class="bottom-tab" data-tab="tracking.html" href="./tracking.html">🧭<br />Track</a>
-            <a class="bottom-tab" data-tab="profile.html" href="./profile.html">👤<br />Profile</a>
-          </nav>
         </div>
       </section>
 
       <nav class="flow-nav">
-        <a class="flow-nav__link" href="./rides.html">← Назад</a>
+        <a class="flow-nav__link" href="./finding.html">← Назад</a>
         <a class="flow-nav__link" href="./profile.html">Далее →</a>
       </nav>
     </main>

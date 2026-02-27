@@ -933,6 +933,11 @@ a {
   -webkit-appearance: none;
 }
 
+.fare-check:checked {
+  background: #0f0f12;
+  border-color: #0f0f12;
+}
+
 .fare-row.is-in-range .fare-check {
   background: #0f0f12;
   border-color: #0f0f12;
@@ -973,6 +978,324 @@ a {
 
 .provider-badge--orange {
   background: #e38a30;
+}
+
+.finding-screen,
+.tracking-live-screen {
+  gap: 0;
+  padding-top: 10px;
+  overflow: auto;
+}
+
+.journey-mini {
+  background: rgba(222, 229, 248, 0.9);
+  border: 1px solid rgba(30, 41, 92, 0.12);
+  border-radius: 16px 16px 0 0;
+  padding: 8px 10px;
+  display: grid;
+  gap: 7px;
+}
+
+.journey-mini__title {
+  margin: 0;
+  text-align: center;
+  font-size: 21px;
+  color: #1c2b68;
+  font-family: "Segoe Script", "Brush Script MT", cursive;
+  line-height: 1;
+}
+
+.journey-mini__point {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  font-size: 11px;
+  color: #6c7191;
+}
+
+.journey-mini__point strong {
+  display: block;
+  color: #2d3566;
+  font-size: 11px;
+}
+
+.journey-mini__point p {
+  margin: 0;
+  color: #7c82a0;
+}
+
+.journey-mini__add {
+  min-height: 27px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.76);
+  color: #2f3a72;
+  font-size: 12px;
+  font-weight: 700;
+  justify-self: start;
+  padding: 0 10px;
+}
+
+.finding-panel {
+  min-height: 126px;
+  background: rgba(248, 182, 175, 0.78);
+  border-left: 1px solid rgba(31, 47, 114, 0.1);
+  border-right: 1px solid rgba(31, 47, 114, 0.1);
+  border-bottom: 1px solid rgba(31, 47, 114, 0.1);
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  align-content: center;
+}
+
+.finding-panel__title {
+  margin: 0;
+  font-family: "Segoe Script", "Brush Script MT", cursive;
+  font-size: 24px;
+  color: #1e2d69;
+  line-height: 1;
+}
+
+.finding-loader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.finding-loader__car {
+  font-size: 25px;
+}
+
+.finding-loader__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #d6f6ff;
+  animation: findingPulse 1.1s ease-in-out infinite;
+}
+
+.finding-loader__dot:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.finding-loader__dot:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.finding-loader__dot:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+@keyframes findingPulse {
+  0%,
+  100% {
+    transform: scale(0.78);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+.finder-board {
+  border: 1px solid rgba(31, 47, 114, 0.18);
+  border-top: 0;
+  border-radius: 0 0 16px 16px;
+  background: linear-gradient(180deg, rgba(198, 157, 190, 0.52), rgba(196, 156, 188, 0.44));
+  display: grid;
+  grid-template-columns: 98px 1fr;
+  overflow: hidden;
+  min-height: 238px;
+}
+
+.finder-cats {
+  background: rgba(255, 255, 255, 0.52);
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 6px;
+}
+
+.finder-cat {
+  min-height: 28px;
+  border-radius: 8px;
+  color: #2a325f;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 7px;
+  line-height: 1.05;
+}
+
+.finder-list {
+  background: rgba(255, 255, 255, 0.45);
+  display: grid;
+  align-content: start;
+}
+
+.finder-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+  padding: 0 8px;
+  font-size: 11px;
+  color: #24306d;
+  border-bottom: 1px solid rgba(25, 36, 84, 0.09);
+}
+
+.finder-row:last-child {
+  border-bottom: 0;
+}
+
+.finder-row__name {
+  line-height: 1.15;
+}
+
+.finder-row__price {
+  font-weight: 700;
+  color: #1e2d69;
+}
+
+.map-card--live {
+  min-height: 198px;
+  border-radius: 0;
+  border-left: 1px solid rgba(31, 47, 114, 0.1);
+  border-right: 1px solid rgba(31, 47, 114, 0.1);
+}
+
+.map-card--live::before,
+.map-card--live::after {
+  opacity: 0.28;
+}
+
+.map-card__menu {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 4;
+}
+
+.live-road {
+  position: absolute;
+  height: 4px;
+  border-radius: 999px;
+  background: #2b3e8f;
+  z-index: 2;
+}
+
+.live-road--a {
+  width: 62%;
+  left: 14%;
+  top: 72%;
+  transform: rotate(-13deg);
+}
+
+.live-road--b {
+  width: 38%;
+  left: 42%;
+  top: 61%;
+  transform: rotate(10deg);
+}
+
+.live-car {
+  position: absolute;
+  left: 43%;
+  top: 74%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  font-size: 21px;
+}
+
+.driver-status-strip {
+  min-height: 38px;
+  border-left: 1px solid rgba(31, 47, 114, 0.1);
+  border-right: 1px solid rgba(31, 47, 114, 0.1);
+  border-bottom: 1px solid rgba(31, 47, 114, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  color: #1e2d69;
+  font-family: "Segoe Script", "Brush Script MT", cursive;
+  font-size: 22px;
+}
+
+.driver-status-strip strong {
+  font-family: Inter, sans-serif;
+  font-size: 15px;
+}
+
+.driver-sheet {
+  border: 1px solid rgba(31, 47, 114, 0.12);
+  border-top: 0;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.driver-sheet__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.driver-sheet__plate {
+  margin: 0;
+  color: #1c2a67;
+  font-size: 29px;
+  line-height: 1;
+}
+
+.driver-sheet__car,
+.driver-sheet__meta {
+  margin: 2px 0 0;
+  color: #4f5677;
+  font-size: 13px;
+}
+
+.driver-sheet__fare {
+  min-height: 36px;
+  border: 1px solid rgba(29, 39, 89, 0.13);
+  border-radius: 10px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  color: #232e68;
+}
+
+.driver-chat {
+  min-height: 38px;
+  border: 1px solid rgba(29, 39, 89, 0.13);
+  border-radius: 999px;
+  padding: 0 4px 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #848aa4;
+  font-size: 13px;
+}
+
+.driver-chat__call {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 0;
+  background: #101216;
+  color: #fff;
+  font-size: 16px;
+}
+
+.avatar--small {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  font-size: 12px;
 }
 
 .ride-list {
