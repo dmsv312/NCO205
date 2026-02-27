@@ -1902,23 +1902,13 @@ button.search-box:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: inherit;
 }
 
-.tab-icon svg {
+.tab-icon-img {
   width: 18px;
   height: 18px;
   display: block;
-  overflow: visible;
-}
-
-.tab-icon svg * {
-  stroke: currentColor !important;
-  fill: none !important;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
+  opacity: 0.86;
 }
 
 .tab-label {
@@ -1929,6 +1919,10 @@ button.search-box:focus-visible {
 .bottom-tab.is-active {
   background: rgba(29, 44, 108, 0.12);
   color: var(--app-accent-strong);
+}
+
+.bottom-tab.is-active .tab-icon-img {
+  opacity: 1;
 }
 
 .rides-toolbar {
