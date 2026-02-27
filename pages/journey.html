@@ -38,7 +38,7 @@
             <div class="route-point">
               <span>📍</span>
               <div>
-                <strong>Blk C Carpark, Singapore University</strong>
+                <strong class="js-route-pickup">Blk C Carpark, Singapore University</strong>
                 <p>463 Clementi Road, Singapore 599494</p>
               </div>
             </div>
@@ -46,26 +46,26 @@
             <div class="route-point">
               <span>📌</span>
               <div>
-                <strong>Tampines Mall</strong>
+                <strong class="js-route-destination">Tampines Mall</strong>
                 <p>4 Tampines Central 5, Singapore 529510</p>
               </div>
             </div>
 
-            <button class="add-location" type="button">+ Add more location</button>
+            <button class="add-location js-add-location" type="button">+ Add more location</button>
           </section>
 
           <section class="payment-strip">
             <p class="label">Payment Method</p>
             <div class="payment-row">
-              <span class="pay-chip">Mastercard</span>
-              <span class="pay-chip">VISA</span>
-              <span class="pay-chip">Apple Pay</span>
-              <span class="pay-chip">GPay</span>
-              <span class="pay-chip">Cash</span>
+              <button class="pay-chip js-payment-chip" type="button" data-payment="Mastercard">Mastercard</button>
+              <button class="pay-chip js-payment-chip" type="button" data-payment="VISA">VISA</button>
+              <button class="pay-chip js-payment-chip" type="button" data-payment="Apple Pay">Apple Pay</button>
+              <button class="pay-chip js-payment-chip" type="button" data-payment="GPay">GPay</button>
+              <button class="pay-chip js-payment-chip" type="button" data-payment="Cash">Cash</button>
             </div>
           </section>
 
-          <a class="btn btn--primary btn--lg" href="./rides.html">Find vehicles</a>
+          <a class="btn btn--primary btn--lg js-go-rides" href="./rides.html">Find vehicles</a>
 
           <nav class="bottom-tabs">
             <a class="bottom-tab" data-tab="home.html" href="./home.html">🏠<br />Home</a>

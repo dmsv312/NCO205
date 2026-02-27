@@ -28,19 +28,21 @@
             </div>
           </section>
 
-          <section class="panel">
+          <section class="panel js-auth-form">
             <label class="label" for="phone">Phone number</label>
             <div class="pill-input">
               <span>+65</span>
-              <input id="phone" type="tel" placeholder="Input your number" />
+              <input id="phone" class="js-input-phone" type="tel" placeholder="Input your number" />
             </div>
 
             <label class="label" for="otp">OTP via SMS</label>
             <div class="pill-input">
-              <input id="otp" type="text" inputmode="numeric" placeholder="Enter OTP" />
+              <input id="otp" class="js-input-otp" type="text" inputmode="numeric" placeholder="Enter OTP" />
             </div>
 
-            <a class="btn btn--primary btn--lg" href="./home.html">Let's go</a>
+            <p class="form-error js-auth-error" aria-live="polite"></p>
+
+            <a class="btn btn--primary btn--lg js-login-btn" href="./home.html">Let's go</a>
           </section>
         </div>
       </section>
