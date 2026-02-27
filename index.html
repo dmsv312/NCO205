@@ -3,27 +3,28 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NCO205 · allride presentation prototype</title>
-    <link rel="stylesheet" href="./assets/styles.css" />
+    <title>allride · Redirecting</title>
+    <meta http-equiv="refresh" content="0; url=./pages/auth.html" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: #f4b8b4;
+        color: #1a2a66;
+      }
+      a {
+        color: inherit;
+        font-weight: 700;
+      }
+    </style>
+    <script>
+      window.location.replace('./pages/auth.html');
+    </script>
   </head>
   <body>
-    <main class="landing">
-      <h1>allride · Mobile Presentation Prototype</h1>
-      <p>
-        A multi-screen mobile web prototype in the reference palette: soft pink surfaces with deep navy accents.
-        Use the quick links below to open each screen.
-      </p>
-
-      <section class="link-grid">
-        <a class="link-tile" href="./pages/splash.html">01 · Splash / Opening</a>
-        <a class="link-tile" href="./pages/auth.html">02 · Login / OTP</a>
-        <a class="link-tile" href="./pages/home.html">03 · Home / Search</a>
-        <a class="link-tile" href="./pages/journey.html">04 · Journey / Payment</a>
-        <a class="link-tile" href="./pages/rides.html">05 · Ride options</a>
-        <a class="link-tile" href="./pages/finding.html">06 · Finding vehicle</a>
-        <a class="link-tile" href="./pages/tracking.html">07 · Ride tracking</a>
-        <a class="link-tile" href="./pages/profile.html">08 · Profile</a>
-      </section>
-    </main>
+    <p>Opening app… <a href="./pages/auth.html">Tap here if it does not redirect.</a></p>
   </body>
 </html>

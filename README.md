@@ -25,7 +25,7 @@ Interactive multi-screen mobile web version of the allride concept.
 
 ## Project structure
 
-- `index.html` — screen hub / launcher
+- `index.html` — default app entry (auto-redirects to `pages/auth.html`)
 - `pages/*.html` — mobile screens
 - `assets/styles.css` — global styles + design system
 - `assets/app.js` — interactive logic and state handling
