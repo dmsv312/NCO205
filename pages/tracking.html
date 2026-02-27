@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>allride · Tracking</title>
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <main class="device-shell">
+      <section class="device">
+        <header class="statusbar">
+          <span>9:41</span>
+          <div class="statusbar__icons">
+            <span>5G</span>
+            <span class="statusbar__dot"></span>
+            <span class="statusbar__dot"></span>
+            <span class="statusbar__dot"></span>
+          </div>
+        </header>
+
+        <div class="safe-area">
+          <div>
+            <h1 class="title">Your ride is coming</h1>
+            <p class="subtitle">Toyota Prius · SGB 4921K</p>
+          </div>
+
+          <div class="eta-pill">Driver arrives in 3 min</div>
+
+          <section class="route-progress">
+            <div class="progress-row">
+              <span class="progress-dot is-active"></span>
+              <div><strong>Driver accepted order</strong><br />Just now</div>
+            </div>
+            <div class="progress-row">
+              <span class="progress-dot is-active"></span>
+              <div><strong>Heading to pickup point</strong><br />2.1 km away</div>
+            </div>
+            <div class="progress-row">
+              <span class="progress-dot"></span>
+              <div><strong>Trip starts</strong><br />Estimated 09:47</div>
+            </div>
+          </section>
+
+          <section class="driver-card">
+            <div class="driver-head">
+              <div class="avatar">AL</div>
+              <div>
+                <h2 class="driver-name">Alex Lim</h2>
+                <p class="driver-meta">⭐ 4.9 · 2,345 trips</p>
+              </div>
+            </div>
+
+            <div class="actions-row">
+              <button class="btn btn--ghost" type="button">Call driver</button>
+              <button class="btn btn--ghost" type="button">Chat</button>
+            </div>
+          </section>
+
+          <a class="btn btn--primary btn--lg" href="./profile.html">Finish demo flow</a>
+
+          <nav class="bottom-tabs">
+            <a class="bottom-tab" data-tab="home.html" href="./home.html">🏠<br />Home</a>
+            <a class="bottom-tab" data-tab="rides.html" href="./rides.html">🚘<br />Rides</a>
+            <a class="bottom-tab" data-tab="tracking.html" href="./tracking.html">🧭<br />Track</a>
+            <a class="bottom-tab" data-tab="profile.html" href="./profile.html">👤<br />Profile</a>
+          </nav>
+        </div>
+      </section>
+
+      <nav class="flow-nav">
+        <a class="flow-nav__link" href="./rides.html">← Назад</a>
+        <a class="flow-nav__link" href="./profile.html">Далее →</a>
+      </nav>
+    </main>
+
+    <script src="../assets/app.js"></script>
+  </body>
+</html>
