@@ -1,18 +1,12 @@
-# NCO205 · allride mobile presentation mockup
+# NCO205 · allride mobile web prototype
 
-Многостраничный фронт-макет мобильного приложения для презентации.
+Interactive multi-screen mobile web version of the allride concept.
 
-## Что сделано
+## What is implemented
 
-- Сохранена референсная палитра: мягкий розовый фон + тёмно-синие акценты
-- Подготовлен единый UI-kit (кнопки, карточки, инпуты, табы)
-- Профильный экран переработан по дополнительному референсу: компактная карточка профиля + быстрые действия
-- Главный пользовательский сценарий переработан по референсу: экран поиска + экран маршрута/оплаты перед выбором тарифа
-- Экран выбора тарифа переработан по дополнительному референсу: ценовой слайдер + категории + список сервисов по возрастанию цены
-- Добавлены режимы фильтрации тарифов (University/Working Adult): пресет диапазона, автоподсветка категорий в диапазоне и ручное включение опций вне диапазона
-- Добавлены два последовательных экрана после выбора тарифа: "Finding vehicle" и обновлённый "Tracking" в стиле последних референсов
-- Добавлена рабочая интерактивность для мобильной web-версии: сохранение состояния между экранами, валидация входа, выбор оплаты, динамический фильтр тарифов и перенос выбранного тарифа в этапы finding/tracking
-- Собран кликабельный flow из 8 экранов:
+- Consistent reference palette (soft pink base + deep navy accents)
+- Unified UI kit (buttons, cards, inputs, tabs, chips)
+- Production-like interactive flow (not static mockups):
   1. Splash
   2. Login / OTP
   3. Home / Search
@@ -21,26 +15,30 @@
   6. Finding vehicle
   7. Tracking
   8. Profile
+- State persistence via `localStorage` across screens
+- Login validation (phone + OTP)
+- Route and destination state synced between pages
+- Payment method selection
+- Fare filtering with presets (Working Adult / University Student)
+- Fare selection state carried into Finding + Tracking screens
 
-## Структура
+## Project structure
 
-- `index.html` — список всех экранов
-- `pages/*.html` — экраны приложения
-- `assets/styles.css` — общие стили
-- `assets/app.js` — лёгкая интерактивность (выбор тарифа + активные табы)
+- `index.html` — screen hub / launcher
+- `pages/*.html` — mobile screens
+- `assets/styles.css` — global styles + design system
+- `assets/app.js` — interactive logic and state handling
 
-## Быстрый запуск
+## Run locally
 
-Открой `index.html` в браузере.
-
-Или через локальный сервер:
+Open `index.html` directly, or run a local server:
 
 ```bash
 npx serve .
 ```
 
-## Следующие шаги
+## Next improvements (optional)
 
-- Подменить тексты/бренд под финальный нейминг
-- Добавить реальные иллюстрации/иконки
-- При необходимости собрать это в React/Flutter-демо оболочку
+- Migrate to React/Vite for component-based architecture
+- Connect real APIs for auth, pricing, and trip tracking
+- Add full accessibility pass (focus rings, aria labels, keyboard navigation)

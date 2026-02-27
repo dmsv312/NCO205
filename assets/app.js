@@ -105,15 +105,15 @@
 
       if (phoneRaw.length < 7) {
         event.preventDefault();
-        setError('Введите корректный номер телефона');
-        toast('Нужен корректный номер');
+        setError('Please enter a valid phone number');
+        toast('Valid phone number required');
         return;
       }
 
       if (otpRaw.length < 4) {
         event.preventDefault();
-        setError('Введите OTP из 4 цифр');
-        toast('Проверь OTP');
+        setError('Please enter a 4-digit OTP');
+        toast('Please check your OTP');
         return;
       }
 
@@ -146,13 +146,13 @@
         const destination = item.dataset.destination || item.textContent || '';
         saveState({ destination: destination.trim() });
         if (destinationEl) destinationEl.textContent = destination.trim();
-        toast(`Маршрут: ${destination.trim()}`);
+        toast(`Route: ${destination.trim()}`);
       });
     });
 
     if (searchBtn) {
       searchBtn.addEventListener('click', () => {
-        const userInput = window.prompt('Куда едем?', state.destination || '');
+        const userInput = window.prompt('Where are you going?', state.destination || '');
         if (!userInput) return;
         saveState({ destination: userInput.trim() });
         if (destinationEl) destinationEl.textContent = userInput.trim();
@@ -186,7 +186,7 @@
 
     if (addLocationBtn) {
       addLocationBtn.addEventListener('click', () => {
-        toast('Дополнительная точка добавлена');
+        toast('Additional stop added');
       });
     }
 
@@ -194,7 +194,7 @@
       goRidesBtn.addEventListener('click', (event) => {
         if (!textOr(state.destination, '')) {
           event.preventDefault();
-          toast('Сначала укажи точку назначения');
+          toast('Please set a destination first');
         }
       });
     }
@@ -370,7 +370,7 @@
       bookBtn.addEventListener('click', (event) => {
         if (!state.selectedFareIds || state.selectedFareIds.length === 0) {
           event.preventDefault();
-          toast('Выбери минимум один вариант');
+          toast('Select at least one option');
         }
       });
     }
@@ -396,7 +396,7 @@
 
     if (goTracking) {
       goTracking.addEventListener('click', () => {
-        toast('Водитель найден');
+        toast('Driver matched');
       });
     }
   };

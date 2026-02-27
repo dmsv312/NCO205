@@ -1644,3 +1644,321 @@ button.search-box {
     padding: 20px;
   }
 }
+
+/* ===== Design refresh: professional mobile app polish ===== */
+:root {
+  --app-bg-soft: #f7f3fb;
+  --app-bg-main: linear-gradient(180deg, #f6adae 0%, #f5bbb6 55%, #f6c8c2 100%);
+  --app-surface: rgba(255, 255, 255, 0.84);
+  --app-surface-strong: #ffffff;
+  --app-accent: #1d2d72;
+  --app-accent-strong: #15214f;
+  --app-text: #1f2748;
+  --app-muted: #667198;
+  --app-border: 1px solid rgba(28, 42, 99, 0.12);
+  --app-shadow: 0 14px 36px rgba(18, 26, 61, 0.18);
+  --app-radius-xl: 24px;
+  --app-radius-lg: 18px;
+  --app-radius-md: 14px;
+}
+
+body {
+  background: radial-gradient(circle at 15% -20%, #ffffff 0%, #eef2fa 56%, #e9edf6 100%);
+  color: var(--app-text);
+}
+
+.device {
+  border-color: #151923;
+  background: var(--app-bg-main);
+}
+
+.statusbar {
+  color: #202953;
+  font-weight: 700;
+}
+
+.safe-area {
+  gap: 12px;
+}
+
+.title,
+.title--script,
+.route-details-title,
+.journey-mini__title,
+.finding-panel__title,
+.driver-status-strip {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.title {
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.2px;
+  color: var(--app-accent-strong);
+}
+
+.title--script {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--app-accent-strong);
+}
+
+.subtitle,
+.hero-note,
+.driver-meta,
+.driver-sheet__meta,
+.journey-mini__point p,
+.route-point p,
+.location-note__text {
+  color: var(--app-muted);
+}
+
+.brand-icon {
+  width: 92px;
+  height: 92px;
+  border-radius: 24px;
+  background: var(--app-surface-strong);
+  box-shadow: 0 12px 24px rgba(24, 35, 86, 0.14);
+}
+
+.brand-title {
+  font-size: 44px;
+  color: var(--app-accent-strong);
+}
+
+.brand-tagline {
+  color: #4a557d;
+}
+
+.hero-card,
+.route-details-card,
+.summary-card,
+.driver-card,
+.panel,
+.location-note,
+.fare-filter,
+.payment-strip,
+.journey-mini,
+.driver-sheet {
+  border: var(--app-border);
+  box-shadow: var(--app-shadow);
+  background: var(--app-surface);
+}
+
+.panel,
+.route-details-card,
+.driver-card,
+.summary-card,
+.driver-sheet,
+.fare-filter,
+.payment-strip,
+.journey-mini {
+  border-radius: var(--app-radius-lg);
+}
+
+.map-card {
+  border: var(--app-border);
+  border-radius: var(--app-radius-xl);
+  box-shadow: var(--app-shadow);
+}
+
+.map-card--live {
+  border-radius: var(--app-radius-lg) var(--app-radius-lg) 0 0;
+}
+
+.map-card__menu,
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  background: #101638;
+  box-shadow: 0 6px 14px rgba(17, 24, 57, 0.3);
+}
+
+.search-box,
+.pill-input {
+  background: rgba(255, 255, 255, 0.96);
+  border: var(--app-border);
+  min-height: 48px;
+}
+
+.search-box {
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+button.search-box:hover,
+button.search-box:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(25, 36, 83, 0.14);
+}
+
+.btn {
+  min-height: 48px;
+  border-radius: 999px;
+  letter-spacing: 0.1px;
+}
+
+.btn--primary {
+  background: linear-gradient(180deg, #263a89 0%, #1a285f 100%);
+}
+
+.btn--book {
+  background: linear-gradient(180deg, #f7efcf 0%, #efe2ba 100%);
+}
+
+.bottom-tabs {
+  border-radius: 18px;
+  border: var(--app-border);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 20px rgba(20, 31, 74, 0.12);
+}
+
+.bottom-tab {
+  min-height: 42px;
+  font-size: 10.5px;
+}
+
+.bottom-tab.is-active {
+  background: rgba(29, 44, 108, 0.12);
+  color: var(--app-accent-strong);
+}
+
+.rides-toolbar {
+  background: rgba(255, 255, 255, 0.62);
+  border: var(--app-border);
+  border-radius: 999px;
+  padding: 6px;
+}
+
+.mode-chip {
+  min-height: 30px;
+  background: rgba(255, 255, 255, 0.94);
+  border: var(--app-border);
+}
+
+.rides-selected {
+  padding-right: 8px;
+  white-space: nowrap;
+}
+
+.fare-browser,
+.finder-board {
+  border-radius: var(--app-radius-lg);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow);
+  background: linear-gradient(180deg, rgba(197, 157, 189, 0.5), rgba(193, 151, 186, 0.36));
+}
+
+.fare-cats,
+.finder-cats {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.fare-cat,
+.finder-cat {
+  border-radius: 10px;
+}
+
+.fare-cat.is-in-range {
+  background: rgba(102, 63, 140, 0.24);
+}
+
+.fare-group {
+  border-radius: 12px;
+  border: var(--app-border);
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.fare-row,
+.finder-row {
+  min-height: 34px;
+}
+
+.fare-row.is-in-range,
+.fare-row.is-manual {
+  background: rgba(111, 74, 151, 0.15);
+}
+
+.finding-panel {
+  border-radius: var(--app-radius-lg);
+  background: rgba(245, 175, 169, 0.72);
+  border: var(--app-border);
+  box-shadow: var(--app-shadow);
+}
+
+.finding-panel__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.1px;
+  color: var(--app-accent-strong);
+}
+
+.driver-status-strip {
+  border: var(--app-border);
+  border-radius: var(--app-radius-md);
+  box-shadow: var(--app-shadow);
+  background: rgba(255, 255, 255, 0.92);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--app-accent-strong);
+}
+
+.driver-sheet__plate {
+  font-size: 28px;
+}
+
+.driver-chat {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.driver-chat__call {
+  background: #11162f;
+}
+
+.profile-card-soft {
+  background: rgba(255, 255, 255, 0.74);
+  border: var(--app-border);
+}
+
+.quick-card,
+.stat-card,
+.list-item,
+.route-chip {
+  border: var(--app-border);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.flow-nav {
+  margin-top: 12px;
+  padding: 0 4px;
+  font-size: 12px;
+}
+
+.flow-nav__link {
+  color: var(--app-accent-strong);
+}
+
+.landing {
+  border-radius: 22px;
+  border: 1px solid rgba(30, 42, 96, 0.12);
+  box-shadow: 0 16px 36px rgba(24, 34, 74, 0.16);
+}
+
+.link-tile {
+  border-radius: 14px;
+  border: 1px solid rgba(37, 56, 132, 0.16);
+  background: linear-gradient(180deg, #f8faff, #f0f4ff);
+}
+
+@media (max-width: 520px) {
+  body {
+    background: #0f1118;
+  }
+
+  .device {
+    background: var(--app-bg-main);
+  }
+
+  .safe-area {
+    padding: 12px 14px 16px;
+  }
+}
