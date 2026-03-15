@@ -514,7 +514,7 @@
       } else if (hasVoucherList) {
         el.textContent = 'Apply service-specific vouchers before choosing a ride.';
       } else {
-        el.textContent = 'No voucher applied. Go back to payment choice if you want provider-specific savings.';
+        el.textContent = 'No voucher applied yet. You can choose one on confirm selection.';
       }
     });
 
