@@ -1933,20 +1933,23 @@ button.search-box:focus-visible {
 }
 
 .rides-toolbar {
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.74);
   border: var(--app-border);
-  border-radius: 999px;
-  padding: 6px;
+  border-radius: 18px;
+  padding: 12px;
+  box-shadow: 0 10px 22px rgba(23, 34, 78, 0.08);
 }
 
 .mode-chip {
-  min-height: 30px;
-  background: rgba(255, 255, 255, 0.94);
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.96);
   border: var(--app-border);
 }
 
 .rides-selected {
-  padding-right: 8px;
+  padding-right: 0;
   white-space: nowrap;
 }
 
@@ -2423,7 +2426,7 @@ body.has-overlay {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
+  gap: 10px;
 }
 
 .rides-toolbar__row--actions {
@@ -2432,11 +2435,11 @@ body.has-overlay {
 }
 
 .ghost-pill {
-  min-height: 32px;
-  padding: 0 12px;
-  border-radius: 999px;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: 12px;
   border: 1px solid rgba(30, 43, 101, 0.12);
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.96);
   color: #24316e;
   font: inherit;
   font-size: 12px;
