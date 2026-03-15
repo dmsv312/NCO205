@@ -276,10 +276,12 @@
       zoomControl: false,
       attributionControl: false,
       scrollWheelZoom: false,
-      touchZoom: true,
+      touchZoom: false,
       doubleClickZoom: false,
-      dragging: true,
-      tap: true,
+      dragging: false,
+      tap: false,
+      boxZoom: false,
+      keyboard: false,
       preferCanvas: true,
     });
 
