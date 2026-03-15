@@ -2163,3 +2163,219 @@ button.search-box:focus-visible {
     padding: 12px 14px 16px;
   }
 }
+
+/* ===== UX pass: clearer menu, auth actions, and destination suggestions ===== */
+.title--script,
+.route-details-title,
+.journey-mini__title,
+.finding-panel__title,
+.driver-status-strip {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.helper-note,
+.auth-note,
+.auth-helper {
+  margin: -2px 2px 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #5f6a92;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.auth-tab {
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(29, 43, 103, 0.14);
+  background: rgba(255, 255, 255, 0.82);
+  color: #32407a;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-tab.is-active {
+  background: #1f2f72;
+  color: #fff;
+  box-shadow: 0 8px 14px rgba(24, 37, 89, 0.18);
+}
+
+.is-hidden {
+  display: none !important;
+}
+
+.action-chip {
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(18, 29, 73, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  color: #1f2e6b;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(21, 32, 79, 0.12);
+  cursor: pointer;
+}
+
+.action-chip--floating {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 4;
+}
+
+.recent-item {
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.js-destination-option,
+.app-menu-item {
+  cursor: pointer;
+}
+
+.recent-item.is-selected {
+  background: rgba(29, 45, 108, 0.1);
+  border-color: rgba(29, 45, 108, 0.18);
+}
+
+.recent-item:hover,
+.recent-item:focus-visible,
+.js-destination-option:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 14px rgba(24, 35, 86, 0.08);
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip-button {
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(29, 43, 103, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: #24326f;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chip-button.is-active {
+  background: rgba(29, 45, 108, 0.12);
+  border-color: rgba(29, 45, 108, 0.22);
+}
+
+.app-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+}
+
+.app-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 16, 35, 0.48);
+  backdrop-filter: blur(4px);
+}
+
+.app-sheet {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(390px, calc(100% - 24px));
+  border-radius: 24px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(22, 34, 82, 0.1);
+  box-shadow: 0 24px 42px rgba(15, 24, 55, 0.24);
+}
+
+.app-sheet__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.app-sheet__title {
+  margin: 4px 0 0;
+  font-size: 18px;
+  line-height: 1.25;
+  color: #17265d;
+}
+
+.app-sheet__close {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(18, 29, 73, 0.08);
+  color: #17265d;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.app-menu-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.app-menu-item {
+  min-height: 58px;
+  border-radius: 16px;
+  border: 1px solid rgba(22, 34, 82, 0.1);
+  background: rgba(244, 247, 255, 0.92);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.app-menu-item strong {
+  display: block;
+  font-size: 14px;
+  color: #1b2c6b;
+}
+
+.app-menu-item small {
+  display: block;
+  margin-top: 3px;
+  color: #677295;
+  font-size: 12px;
+}
+
+.app-menu-item.is-active {
+  border-color: rgba(29, 45, 108, 0.2);
+  background: rgba(29, 45, 108, 0.08);
+}
+
+body.has-overlay {
+  overflow: hidden;
+}

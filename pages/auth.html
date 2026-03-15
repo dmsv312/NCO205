@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>allride · Login</title>
+    <title>allride · Access</title>
     <link rel="stylesheet" href="../assets/styles.css" />
   </head>
   <body>
@@ -24,16 +24,33 @@
             <div class="hero-card__content">
               <p class="hero-label">Welcome to</p>
               <h1 class="hero-title">allride</h1>
-              <p class="hero-note">Sign in with your phone number to continue with your trips</p>
+              <p class="hero-note">Log in or create an account with your phone number. Your name is only shown after you enter it during sign up.</p>
             </div>
           </section>
 
-          <section class="panel js-auth-form auth-form">
+          <section class="panel js-auth-form auth-form" data-auth-mode="login">
+            <div class="auth-tabs" role="tablist" aria-label="Access mode">
+              <button class="auth-tab is-active" type="button" data-auth-mode="login" role="tab" aria-selected="true">Log in</button>
+              <button class="auth-tab" type="button" data-auth-mode="signup" role="tab" aria-selected="false">Sign up</button>
+            </div>
+
+            <p class="auth-helper js-auth-helper">Log in with your phone number. We only show your name after you enter it during sign up or save it on this device.</p>
+
+            <div class="js-name-field is-hidden">
+              <label class="label" for="full-name">Your name</label>
+              <div class="pill-input">
+                <input id="full-name" class="js-input-name" type="text" placeholder="How should we greet you?" />
+              </div>
+            </div>
+
             <label class="label" for="phone">Phone number</label>
             <div class="pill-input">
               <span>+65</span>
               <input id="phone" class="js-input-phone" type="tel" placeholder="Your phone number" />
             </div>
+
+            <button class="btn btn--ghost btn--lg js-send-otp-btn" type="button">Send OTP</button>
+            <p class="auth-note js-otp-note">Tap “Send OTP” first. Demo code: 2468.</p>
 
             <label class="label" for="otp">OTP code</label>
             <div class="pill-input">
@@ -42,7 +59,7 @@
 
             <p class="form-error js-auth-error" aria-live="polite"></p>
 
-            <a class="btn btn--primary btn--lg js-login-btn" href="./home.html">Continue</a>
+            <a class="btn btn--primary btn--lg js-login-btn" href="./home.html">Log in</a>
           </section>
         </div>
       </section>

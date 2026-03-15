@@ -22,8 +22,14 @@
 
         <div class="safe-area home-screen">
           <div class="top-row top-row--compact">
-            <h1 class="title title--script">Hello <span class="js-greeting-name">XXX</span> out today?</h1>
-            <button class="icon-btn" aria-label="Menu">☰</button>
+            <div>
+              <h1 class="title js-greeting-title">Ready for your next ride?</h1>
+              <p class="subtitle js-greeting-subtitle">Choose a nearby drop-off or search manually.</p>
+            </div>
+            <button class="action-chip js-menu-trigger" type="button" aria-label="Open quick menu">
+              <span>Menu</span>
+              <span aria-hidden="true">☰</span>
+            </button>
           </div>
 
           <section class="map-card map-card--city">
@@ -40,19 +46,22 @@
 
           <button class="search-box search-box--action js-open-search" type="button">
             <span>🔎 <span class="js-destination-text">Search your destination</span></span>
-            <span class="search-box__action">➜</span>
+            <span class="search-box__action">Pick drop-off</span>
           </button>
 
+          <p class="helper-note">Suggested destinations below are based on your boarding point and saved preferences.</p>
+
           <section class="panel panel--locations">
-            <ul class="recent-list">
-              <li class="recent-item js-recent-destination" data-destination="XXX's home"><span>🏠 XXX's home</span><span>Home</span></li>
-              <li class="recent-item js-recent-destination" data-destination="Office"><span>💼 Office</span><span>Work</span></li>
-              <li class="recent-item js-recent-destination" data-destination="Singapore Flyer"><span>🕘 Singapore Flyer</span><span>Recent</span></li>
-              <li class="recent-item js-recent-destination" data-destination="Tampines Mall"><span>🕘 Tampines Mall</span><span>Recent</span></li>
-            </ul>
+            <div class="panel-head">
+              <div>
+                <p class="label">Suggested drop-offs</p>
+                <p class="subtitle">Nearby places and saved destinations you can reuse quickly.</p>
+              </div>
+            </div>
+            <ul class="recent-list js-destination-suggestions"></ul>
           </section>
 
-          <p class="promo-banner">LIFT YOUR RIDE · ALLRIDE</p>
+          <p class="promo-banner">All providers · one trip view</p>
 
           <nav class="bottom-tabs">
             <a class="bottom-tab" data-tab="home.html" href="./home.html">

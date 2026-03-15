@@ -22,7 +22,10 @@
 
         <div class="safe-area journey-screen">
           <div class="top-row top-row--compact top-row--end">
-            <button class="icon-btn" aria-label="Menu">☰</button>
+            <button class="action-chip js-menu-trigger" type="button" aria-label="Open quick menu">
+              <span>Menu</span>
+              <span aria-hidden="true">☰</span>
+            </button>
           </div>
 
           <section class="map-card map-card--route-view">
@@ -30,7 +33,7 @@
           </section>
 
           <section class="route-details-card">
-            <h2 class="route-details-title">AllRide Journey</h2>
+            <h2 class="route-details-title">Trip details</h2>
 
             <div class="route-point">
               <span>📍</span>
@@ -43,12 +46,22 @@
             <div class="route-point">
               <span>📌</span>
               <div>
-                <strong class="js-route-destination">Tampines Mall</strong>
-                <p>4 Tampines Central 5, Singapore 529510</p>
+                <strong class="js-route-destination">Choose a drop-off</strong>
+                <p>Pick a nearby suggestion or type a destination from home search.</p>
               </div>
             </div>
 
-            <button class="add-location js-add-location" type="button">+ Add more location</button>
+            <button class="add-location js-add-location" type="button">+ Add another stop</button>
+          </section>
+
+          <section class="panel panel--flat">
+            <div class="panel-head">
+              <div>
+                <p class="label">Nearby drop-offs</p>
+                <p class="subtitle">Quick choices based on this boarding area and your saved preferences.</p>
+              </div>
+            </div>
+            <div class="chip-row js-nearby-destinations"></div>
           </section>
 
           <section class="payment-strip">
