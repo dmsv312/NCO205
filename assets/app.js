@@ -1,5 +1,5 @@
 (() => {
-  const STORAGE_KEY = 'allride_demo_state_v2';
+  const STORAGE_KEY = 'allride_demo_state_v3';
   const DEMO_OTP = '2468';
 
   const DEFAULT_DESTINATION_PREFERENCES = {
@@ -11,6 +11,37 @@
     'Buona Vista MRT': 1,
   };
 
+  const VOUCHER_OPTIONS = [
+    {
+      id: 'grab-unlimited',
+      label: 'GrabUnlimited',
+      note: '-$3 on Grab rides',
+      providers: ['Grab'],
+      discount: 3,
+    },
+    {
+      id: 'ryde-pass',
+      label: 'RydePass',
+      note: '-$2 on Ryde rides',
+      providers: ['Ryde'],
+      discount: 2,
+    },
+    {
+      id: 'zig-saver',
+      label: 'Zig Saver',
+      note: '-$1.50 on CDG Zig rides',
+      providers: ['CDG Zig'],
+      discount: 1.5,
+    },
+    {
+      id: 'gojek-plus',
+      label: 'Gojek Plus',
+      note: '-$2.20 on Gojek rides',
+      providers: ['Gojek'],
+      discount: 2.2,
+    },
+  ];
+
   const DEFAULT_STATE = {
     authMode: 'login',
     userName: '',
@@ -20,6 +51,7 @@
     pickup: 'Blk C carpark, Singapore University of Social Sciences',
     destination: '',
     paymentMethod: 'VISA',
+    selectedVoucherId: '',
     fareMode: 'working',
     fareRangeMin: 10,
     fareRangeMax: 55,
@@ -35,42 +67,36 @@
       icon: '🏠',
       tag: 'Saved',
       note: 'Saved home',
-      keywords: ['home'],
     },
     {
       value: 'Office',
       icon: '💼',
       tag: 'Saved',
       note: 'Office',
-      keywords: ['office'],
     },
     {
       value: 'Tampines Mall',
       icon: '🛍️',
       tag: 'Popular',
       note: 'Tampines Mall',
-      keywords: ['tampines'],
     },
     {
       value: 'Clementi Mall',
       icon: '🛍️',
       tag: 'Nearby',
       note: 'Clementi Mall',
-      keywords: ['clementi'],
     },
     {
       value: 'Singapore Flyer',
       icon: '🎡',
       tag: 'Nearby',
       note: 'Singapore Flyer',
-      keywords: ['flyer'],
     },
     {
       value: 'Buona Vista MRT',
       icon: '🚉',
       tag: 'Nearby',
       note: 'Buona Vista MRT',
-      keywords: ['buona vista', 'mrt'],
     },
   ];
 
@@ -114,6 +140,11 @@
     return { ...DEFAULT_DESTINATION_PREFERENCES, ...prefs };
   };
 
+  const normalizeVoucherId = (value) => {
+    const voucherId = String(value || '').trim();
+    return VOUCHER_OPTIONS.some((voucher) => voucher.id === voucherId) ? voucherId : '';
+  };
+
   const normalizeState = (value = {}) => {
     const normalizedName = normalizeName(value.userName === 'Guest' ? '' : value.userName);
 
@@ -125,8 +156,12 @@
       phone: String(value.phone || '').replace(/\D/g, ''),
       otp: String(value.otp || '').replace(/\D/g, ''),
       otpRequested: Boolean(value.otpRequested),
+      pickup: normalizeName(value.pickup || DEFAULT_STATE.pickup) || DEFAULT_STATE.pickup,
       destination: normalizeDestination(value.destination),
+      selectedVoucherId: normalizeVoucherId(value.selectedVoucherId),
       destinationPreferences: normalizePreferences(value.destinationPreferences),
+      selectedFareIds: Array.isArray(value.selectedFareIds) ? value.selectedFareIds.filter(Boolean) : [],
+      selectedFarePrice: Number(value.selectedFarePrice || DEFAULT_STATE.selectedFarePrice),
     };
   };
 
@@ -176,7 +211,22 @@
     window.location.href = getRidesPageHref();
   };
 
-  const getDestinationMeta = (destination) => DESTINATION_OPTIONS.find((option) => option.value === destination);
+  const getVoucherById = (voucherId) => VOUCHER_OPTIONS.find((voucher) => voucher.id === voucherId) || null;
+  const getActiveVoucher = () => getVoucherById(state.selectedVoucherId);
+
+  const getEffectivePrice = (price, providerName = '') => {
+    const voucher = getActiveVoucher();
+    const basePrice = Number(price || 0);
+
+    if (!voucher) return basePrice;
+
+    const provider = String(providerName || '').toLowerCase();
+    const matches = voucher.providers.some((name) => provider.includes(String(name).toLowerCase()));
+
+    if (!matches) return basePrice;
+
+    return Math.max(0, Number((basePrice - voucher.discount).toFixed(2)));
+  };
 
   const formatDestinationLabel = (destination) => {
     const normalized = normalizeDestination(destination);
@@ -351,15 +401,6 @@
     });
   };
 
-  const initAddressLinks = () => {
-    qsa('.js-route-pickup, .js-route-destination').forEach((el) => {
-      el.classList.add('is-address-link');
-      el.addEventListener('click', () => {
-        goToRidesPage();
-      });
-    });
-  };
-
   const getSortedDestinations = () => {
     const prefs = normalizePreferences(state.destinationPreferences);
 
@@ -390,6 +431,7 @@
 
     syncRouteTexts();
     renderDestinationSuggestions();
+    renderVoucherOptions();
     refreshRealMaps();
 
     if (announce) {
@@ -447,6 +489,50 @@
     });
   };
 
+  const renderVoucherOptions = () => {
+    const activeVoucher = getActiveVoucher();
+    const hasVoucherList = qsa('.js-voucher-list').length > 0;
+
+    qsa('.js-voucher-summary').forEach((el) => {
+      if (activeVoucher) {
+        el.textContent = `${activeVoucher.label} applied · ${activeVoucher.note}`;
+      } else if (hasVoucherList) {
+        el.textContent = 'Apply service-specific vouchers before choosing a ride.';
+      } else {
+        el.textContent = 'No voucher applied. Go back to payment choice if you want provider-specific savings.';
+      }
+    });
+
+    qsa('.js-voucher-list').forEach((row) => {
+      row.innerHTML = [
+        `
+          <button class="chip-button js-voucher-chip${activeVoucher ? '' : ' is-active'}" type="button" data-voucher-id="">
+            <span>✕</span>
+            <span>No voucher</span>
+          </button>
+        `,
+        ...VOUCHER_OPTIONS.map((voucher) => {
+          const isActive = activeVoucher?.id === voucher.id;
+          return `
+            <button class="chip-button chip-button--voucher js-voucher-chip${isActive ? ' is-active' : ''}" type="button" data-voucher-id="${voucher.id}">
+              <span>${voucher.label}</span>
+              <span>${voucher.note}</span>
+            </button>
+          `;
+        }),
+      ].join('');
+    });
+
+    qsa('.js-voucher-chip').forEach((button) => {
+      button.addEventListener('click', () => {
+        const voucherId = button.dataset.voucherId || '';
+        saveState({ selectedVoucherId: voucherId });
+        renderVoucherOptions();
+        toast(voucherId ? 'Voucher applied' : 'Voucher cleared');
+      });
+    });
+  };
+
   const initQuickMenu = () => {
     const triggers = qsa('.js-menu-trigger');
     if (!triggers.length) return;
@@ -454,7 +540,8 @@
     const currentPath = window.location.pathname.split('/').pop();
     const items = [
       { href: getHomeHref(), label: 'Home', note: 'Greeting, search and saved destinations', routes: ['home.html'] },
-      { href: getJourneyHref(), label: 'Rides', note: 'Trip details and fare options', routes: ['journey.html', 'rides.html', 'finding.html'] },
+      { href: getJourneyHref(), label: 'Payment choice', note: 'Edit route, payment method and vouchers', routes: ['journey.html'] },
+      { href: getRidesPageHref(), label: 'Ride & price choice', note: 'Compare ride types and pricing', routes: ['rides.html', 'finding.html'] },
       { href: getTrackingHref(), label: 'Track', note: 'Driver progress and ETA', routes: ['tracking.html'] },
       { href: getProfileHref(), label: 'Profile', note: 'Account and saved info', routes: ['profile.html'] },
     ];
@@ -680,6 +767,7 @@
     }
 
     renderDestinationSuggestions();
+    renderVoucherOptions();
     refreshRealMaps();
   };
 
@@ -688,11 +776,14 @@
 
     syncRouteTexts();
     renderDestinationSuggestions();
+    renderVoucherOptions();
     refreshRealMaps();
 
     const paymentButtons = qsa('.js-payment-chip');
     const addLocationBtn = qs('.js-add-location');
     const goRidesBtn = qs('.js-go-rides');
+    const editPickupButtons = qsa('.js-edit-pickup');
+    const editDestinationButtons = qsa('.js-edit-destination');
 
     const paintPayments = () => {
       paymentButtons.forEach((button) => {
@@ -706,6 +797,24 @@
         const paymentMethod = button.dataset.payment || 'VISA';
         saveState({ paymentMethod });
         paintPayments();
+      });
+    });
+
+    editPickupButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const pickup = window.prompt('Edit pick-up location', state.pickup || DEFAULT_STATE.pickup);
+        if (!pickup) return;
+        saveState({ pickup: pickup.trim() });
+        syncRouteTexts();
+        toast('Pick-up updated');
+      });
+    });
+
+    editDestinationButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const destination = window.prompt('Edit drop-off location', state.destination || '');
+        if (!destination) return;
+        applyDestination(destination.trim(), { announce: true });
       });
     });
 
@@ -733,6 +842,7 @@
 
     refreshRealMaps();
     syncRouteTexts();
+    renderVoucherOptions();
 
     const rangeMin = qs('.js-range-min');
     const rangeMax = qs('.js-range-max');
@@ -743,8 +853,37 @@
     const modeToggle = qs('.js-mode-toggle');
     const selectedMeta = qs('.js-selected-meta');
     const bookBtn = qs('.js-book-btn');
+    const selectAllBtn = qs('.js-select-all-rides');
+    const clearAllBtn = qs('.js-clear-all-rides');
 
     const selectedManual = new Set(Array.isArray(state.selectedFareIds) ? state.selectedFareIds : []);
+
+    const getRowEffectivePrice = (row) => {
+      const basePrice = Number(row.dataset.price || 0);
+      const provider = row.dataset.provider || '';
+      return getEffectivePrice(basePrice, provider);
+    };
+
+    const renderFarePrices = () => {
+      fareRows.forEach((row) => {
+        const priceEl = row.querySelector('.fare-row__price');
+        const basePrice = Number(row.dataset.price || 0);
+        const effectivePrice = getRowEffectivePrice(row);
+        const hasDiscount = effectivePrice < basePrice;
+
+        row.dataset.effectivePrice = String(effectivePrice.toFixed(2));
+
+        if (priceEl) {
+          priceEl.textContent = formatPrice(effectivePrice);
+          priceEl.classList.toggle('is-discounted', hasDiscount);
+          if (hasDiscount) {
+            priceEl.title = `Voucher applied · original ${formatPrice(basePrice)}`;
+          } else {
+            priceEl.removeAttribute('title');
+          }
+        }
+      });
+    };
 
     const setMode = (mode) => {
       const preset = PRESETS[mode] || PRESETS.working;
@@ -755,15 +894,9 @@
       if (modeToggle) modeToggle.textContent = preset.label;
     };
 
-    if (modeToggle) {
-      modeToggle.addEventListener('click', () => {
-        const nextMode = state.fareMode === 'working' ? 'university' : 'working';
-        setMode(nextMode);
-        applyFareRange();
-      });
-    }
-
     const applyFareRange = () => {
+      renderFarePrices();
+
       let min = rangeMin ? Number(rangeMin.value) : Number(state.fareRangeMin || 10);
       let max = rangeMax ? Number(rangeMax.value) : Number(state.fareRangeMax || 55);
 
@@ -781,24 +914,20 @@
 
       fareRows.forEach((row) => {
         const id = row.dataset.id || '';
-        const price = Number(row.dataset.price || 0);
         const check = row.querySelector('.fare-check');
-        const inRange = price >= min && price <= max;
+        const effectivePrice = Number(row.dataset.effectivePrice || getRowEffectivePrice(row));
+        const inRange = effectivePrice >= min && effectivePrice <= max;
+        const isSelected = selectedManual.has(id);
 
         row.classList.toggle('is-in-range', inRange);
+        row.classList.toggle('is-manual', isSelected);
 
-        if (inRange) {
-          row.classList.remove('is-manual');
-          selectedManual.delete(id);
-          if (check) check.checked = true;
+        if (check) {
+          check.checked = isSelected;
+        }
+
+        if (isSelected) {
           selectedRows.push(row);
-        } else if (selectedManual.has(id)) {
-          row.classList.add('is-manual');
-          if (check) check.checked = true;
-          selectedRows.push(row);
-        } else {
-          row.classList.remove('is-manual');
-          if (check) check.checked = false;
         }
       });
 
@@ -808,15 +937,16 @@
         cat.classList.toggle('is-in-range', hasInRange);
       });
 
-      selectedRows.sort((a, b) => Number(a.dataset.price) - Number(b.dataset.price));
+      selectedRows.sort((a, b) => Number(a.dataset.effectivePrice || 0) - Number(b.dataset.effectivePrice || 0));
       const mainRide = selectedRows[0] || null;
+      const mainRidePrice = mainRide ? Number(mainRide.dataset.effectivePrice || 0) : 0;
 
       if (selectedMeta) {
-        selectedMeta.textContent = `${selectedRows.length} option${selectedRows.length === 1 ? '' : 's'} selected`;
+        selectedMeta.textContent = `${selectedRows.length} ride type${selectedRows.length === 1 ? '' : 's'} selected`;
       }
 
       if (bookBtn) {
-        bookBtn.textContent = mainRide ? `Book · ${formatPrice(mainRide.dataset.price || 0)}` : 'Book';
+        bookBtn.textContent = mainRide ? `Continue · ${formatPrice(mainRidePrice)}` : 'Select a ride';
       }
 
       const selectedFareIds = selectedRows
@@ -828,9 +958,17 @@
         fareRangeMax: max,
         selectedFareIds,
         selectedFareName: mainRide ? textOr(mainRide.querySelector('.fare-row__name')?.textContent, DEFAULT_STATE.selectedFareName) : DEFAULT_STATE.selectedFareName,
-        selectedFarePrice: mainRide ? Number(mainRide.dataset.price || 0) : DEFAULT_STATE.selectedFarePrice,
+        selectedFarePrice: mainRide ? mainRidePrice : DEFAULT_STATE.selectedFarePrice,
       });
     };
+
+    if (modeToggle) {
+      modeToggle.addEventListener('click', () => {
+        const nextMode = state.fareMode === 'working' ? 'university' : 'working';
+        setMode(nextMode);
+        applyFareRange();
+      });
+    }
 
     fareRows.forEach((row) => {
       const id = row.dataset.id || '';
@@ -839,11 +977,6 @@
       if (!check) return;
 
       check.addEventListener('change', () => {
-        if (row.classList.contains('is-in-range')) {
-          check.checked = true;
-          return;
-        }
-
         if (check.checked) {
           selectedManual.add(id);
         } else {
@@ -855,8 +988,6 @@
 
       row.addEventListener('click', (event) => {
         if (event.target === check) return;
-
-        if (row.classList.contains('is-in-range')) return;
 
         event.preventDefault();
         check.checked = !check.checked;
@@ -878,11 +1009,31 @@
       rangeMax.value = String(state.fareRangeMax || PRESETS.working.max);
       rangeMax.addEventListener('input', () => {
         if (rangeMin && Number(rangeMax.value) < Number(rangeMin.value)) {
-          if (rangeMin.type === 'range') {
-            rangeMin.value = rangeMax.value;
-          }
+          rangeMin.value = rangeMax.value;
         }
         applyFareRange();
+      });
+    }
+
+    if (selectAllBtn) {
+      selectAllBtn.addEventListener('click', () => {
+        const inRangeRows = fareRows.filter((row) => row.classList.contains('is-in-range'));
+        const targetRows = inRangeRows.length ? inRangeRows : fareRows;
+
+        targetRows.forEach((row) => {
+          if (row.dataset.id) selectedManual.add(row.dataset.id);
+        });
+
+        applyFareRange();
+        toast(`Selected ${targetRows.length} ride type${targetRows.length === 1 ? '' : 's'}`);
+      });
+    }
+
+    if (clearAllBtn) {
+      clearAllBtn.addEventListener('click', () => {
+        selectedManual.clear();
+        applyFareRange();
+        toast('Ride selection cleared');
       });
     }
 
@@ -900,7 +1051,7 @@
 
         if (!state.selectedFareIds || state.selectedFareIds.length === 0) {
           event.preventDefault();
-          toast('Select at least one option');
+          toast('Select at least one ride type');
         }
       });
     }
@@ -912,6 +1063,7 @@
     if (!qs('.finding-screen')) return;
 
     syncRouteTexts();
+    renderVoucherOptions();
 
     const finderList = qs('.js-finder-list');
     const goTracking = qs('.js-go-tracking');
@@ -935,6 +1087,7 @@
     if (!qs('.tracking-live-screen')) return;
 
     syncRouteTexts();
+    renderVoucherOptions();
     refreshRealMaps();
 
     const fareName = qs('.js-fare-name');
@@ -965,7 +1118,6 @@
 
   syncBottomTabs();
   syncRouteTexts();
-  initAddressLinks();
   initQuickMenu();
   initAuth();
   initHome();
@@ -975,5 +1127,6 @@
   initTracking();
   initProfile();
   renderDestinationSuggestions();
+  renderVoucherOptions();
   refreshRealMaps();
 })();

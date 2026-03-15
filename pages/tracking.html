@@ -21,6 +21,17 @@
         </header>
 
         <div class="safe-area tracking-live-screen">
+          <div class="top-row top-row--compact">
+            <a class="action-chip action-chip--back" href="./finding.html" aria-label="Go back to confirm selection">
+              <span aria-hidden="true">←</span>
+              <span>Back</span>
+            </a>
+            <button class="action-chip js-menu-trigger" type="button" aria-label="Open quick menu">
+              <span>Menu</span>
+              <span aria-hidden="true">☰</span>
+            </button>
+          </div>
+
           <section class="journey-mini">
             <h2 class="journey-mini__title">Trip summary</h2>
 
@@ -44,10 +55,6 @@
           </section>
 
           <section class="map-card map-card--live">
-            <button class="action-chip action-chip--floating js-menu-trigger" type="button" aria-label="Open quick menu">
-              <span>Menu</span>
-              <span aria-hidden="true">☰</span>
-            </button>
             <div class="map-live js-map-tracking" aria-label="Live driver route"></div>
           </section>
 

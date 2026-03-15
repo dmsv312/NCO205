@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>allride · Finding vehicle</title>
+    <title>allride · Confirm selection</title>
     <link rel="stylesheet" href="../assets/styles.css" />
   </head>
   <body>
@@ -20,8 +20,19 @@
         </header>
 
         <div class="safe-area finding-screen">
+          <div class="top-row top-row--compact">
+            <a class="action-chip action-chip--back" href="./rides.html" aria-label="Go back to ride and price choice">
+              <span aria-hidden="true">←</span>
+              <span>Back</span>
+            </a>
+            <button class="action-chip js-menu-trigger" type="button" aria-label="Open quick menu">
+              <span>Menu</span>
+              <span aria-hidden="true">☰</span>
+            </button>
+          </div>
+
           <section class="journey-mini">
-            <h2 class="journey-mini__title">Trip summary</h2>
+            <h2 class="journey-mini__title">Confirm selection</h2>
 
             <div class="journey-mini__point">
               <span>📍</span>

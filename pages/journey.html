@@ -21,7 +21,11 @@
         </header>
 
         <div class="safe-area journey-screen">
-          <div class="top-row top-row--compact top-row--end">
+          <div class="top-row top-row--compact">
+            <a class="action-chip action-chip--back" href="./home.html" aria-label="Go back to home">
+              <span aria-hidden="true">←</span>
+              <span>Back</span>
+            </a>
             <button class="action-chip js-menu-trigger" type="button" aria-label="Open quick menu">
               <span>Menu</span>
               <span aria-hidden="true">☰</span>
@@ -35,20 +39,22 @@
           <section class="route-details-card">
             <h2 class="route-details-title">Trip details</h2>
 
-            <div class="route-point">
+            <div class="route-point route-point--editable">
               <span>📍</span>
-              <div>
+              <div class="route-point__main">
                 <strong class="js-route-pickup">Blk C Carpark, Singapore University</strong>
                 <p>463 Clementi Road, Singapore 599494</p>
               </div>
+              <button class="mini-action js-edit-pickup" type="button">Edit</button>
             </div>
 
-            <div class="route-point">
+            <div class="route-point route-point--editable">
               <span>📌</span>
-              <div>
+              <div class="route-point__main">
                 <strong class="js-route-destination">Choose a drop-off</strong>
                 <p>Pick a nearby suggestion or type a destination from home search.</p>
               </div>
+              <button class="mini-action js-edit-destination" type="button">Edit</button>
             </div>
 
             <button class="add-location js-add-location" type="button">+ Add another stop</button>
@@ -73,6 +79,16 @@
               <button class="pay-chip js-payment-chip" type="button" data-payment="GPay">GPay</button>
               <button class="pay-chip js-payment-chip" type="button" data-payment="Cash">Cash</button>
             </div>
+          </section>
+
+          <section class="panel panel--flat">
+            <div class="panel-head">
+              <div>
+                <p class="label">Discount codes & vouchers</p>
+                <p class="subtitle js-voucher-summary">Apply service-specific vouchers before choosing a ride.</p>
+              </div>
+            </div>
+            <div class="chip-row js-voucher-list"></div>
           </section>
 
           <a class="btn btn--primary btn--lg js-go-rides" href="./rides.html">Find vehicles</a>
