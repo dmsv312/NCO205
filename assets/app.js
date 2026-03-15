@@ -514,7 +514,7 @@
       } else if (hasVoucherList) {
         el.textContent = 'Apply service-specific vouchers before choosing a ride.';
       } else {
-        el.textContent = 'No voucher applied yet. You can choose one on confirm selection.';
+        el.textContent = 'No voucher applied yet. Pick one before choosing a ride.';
       }
     });
 
@@ -543,6 +543,7 @@
         const voucherId = button.dataset.voucherId || '';
         saveState({ selectedVoucherId: voucherId });
         renderVoucherOptions();
+        document.dispatchEvent(new Event('allride:voucher-change'));
         toast(voucherId ? 'Voucher applied' : 'Voucher cleared');
       });
     });
@@ -1069,6 +1070,7 @@
       });
     }
 
+    document.addEventListener('allride:voucher-change', applyFareRange);
     applyFareRange();
   };
 
