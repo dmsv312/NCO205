@@ -2491,3 +2491,34 @@ body.has-overlay {
 .btn--danger-soft:focus-visible {
   box-shadow: 0 10px 18px rgba(165, 54, 73, 0.12);
 }
+
+.payment-strip--confirm {
+  margin-top: 10px;
+}
+
+.payment-current {
+  margin: 0;
+  color: #586486;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.payment-current strong {
+  color: #1a2a67;
+}
+
+.driver-sheet__meta-row {
+  min-height: 34px;
+  border: 1px solid rgba(29, 39, 89, 0.13);
+  border-radius: 10px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #4e5879;
+}
+
+.driver-sheet__meta-row strong {
+  color: #1f2f72;
+}

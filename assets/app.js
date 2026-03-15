@@ -180,6 +180,7 @@
   const saveState = (patch = {}) => {
     state = normalizeState({ ...state, ...patch });
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    syncPaymentTexts();
   };
 
   const toast = (message) => {
@@ -400,6 +401,18 @@
 
     qsa('.js-destination-text').forEach((el) => {
       el.textContent = state.destination ? formatDestinationLabel(state.destination) : 'Search your destination';
+    });
+  };
+
+  const syncPaymentTexts = () => {
+    qsa('.js-payment-method-label').forEach((el) => {
+      el.textContent = textOr(state.paymentMethod, DEFAULT_STATE.paymentMethod);
+    });
+
+    qsa('.js-payment-chip').forEach((button) => {
+      const isActive = button.dataset.payment === state.paymentMethod;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-pressed', String(isActive));
     });
   };
 
@@ -731,6 +744,21 @@
     });
   };
 
+  const initPaymentChoice = () => {
+    const paymentButtons = qsa('.js-payment-chip');
+    if (!paymentButtons.length) return;
+
+    syncPaymentTexts();
+
+    paymentButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const paymentMethod = button.dataset.payment || DEFAULT_STATE.paymentMethod;
+        saveState({ paymentMethod });
+        toast(`${paymentMethod} selected`);
+      });
+    });
+  };
+
   const initHome = () => {
     const titleEl = qs('.js-greeting-title');
     const subtitleEl = qs('.js-greeting-subtitle');
@@ -777,30 +805,15 @@
     if (!qs('.journey-screen')) return;
 
     syncRouteTexts();
+    syncPaymentTexts();
     renderDestinationSuggestions();
     renderVoucherOptions();
     refreshRealMaps();
 
-    const paymentButtons = qsa('.js-payment-chip');
     const addLocationBtn = qs('.js-add-location');
     const goRidesBtn = qs('.js-go-rides');
     const editPickupButtons = qsa('.js-edit-pickup');
     const editDestinationButtons = qsa('.js-edit-destination');
-
-    const paintPayments = () => {
-      paymentButtons.forEach((button) => {
-        const isActive = button.dataset.payment === state.paymentMethod;
-        button.classList.toggle('is-active', isActive);
-      });
-    };
-
-    paymentButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const paymentMethod = button.dataset.payment || 'VISA';
-        saveState({ paymentMethod });
-        paintPayments();
-      });
-    });
 
     editPickupButtons.forEach((button) => {
       button.addEventListener('click', () => {
@@ -834,8 +847,6 @@
         }
       });
     }
-
-    paintPayments();
   };
 
   const initRides = () => {
@@ -1065,6 +1076,7 @@
     if (!qs('.finding-screen')) return;
 
     syncRouteTexts();
+    syncPaymentTexts();
     renderVoucherOptions();
 
     const finderList = qs('.js-finder-list');
@@ -1089,6 +1101,7 @@
     if (!qs('.tracking-live-screen')) return;
 
     syncRouteTexts();
+    syncPaymentTexts();
     renderVoucherOptions();
     refreshRealMaps();
 
@@ -1143,8 +1156,10 @@
 
   syncBottomTabs();
   syncRouteTexts();
+  syncPaymentTexts();
   initQuickMenu();
   initAuth();
+  initPaymentChoice();
   initHome();
   initJourney();
   initRides();
