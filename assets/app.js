@@ -1104,6 +1104,29 @@
     }
   };
 
+  const initCancelBooking = () => {
+    const buttons = qsa('.js-cancel-booking');
+    if (!buttons.length) return;
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const confirmed = window.confirm('Cancel this booking and return to home?');
+        if (!confirmed) return;
+
+        saveState({
+          selectedFareIds: [],
+          selectedFareName: DEFAULT_STATE.selectedFareName,
+          selectedFarePrice: DEFAULT_STATE.selectedFarePrice,
+        });
+
+        toast('Booking cancelled');
+        setTimeout(() => {
+          window.location.href = getHomeHref();
+        }, 180);
+      });
+    });
+  };
+
   const initProfile = () => {
     const nameEl = qs('.js-profile-name');
     const phoneEl = qs('.js-profile-phone');
@@ -1125,6 +1148,7 @@
   initRides();
   initFinding();
   initTracking();
+  initCancelBooking();
   initProfile();
   renderDestinationSuggestions();
   renderVoucherOptions();
